@@ -44,8 +44,7 @@ La racine du repo contient `index.html`, le recueil qui liste les scénarios sou
 
 1. Copie le gabarit `assets/card.html` et remplis-le (`{{SLUG}}`, `{{GENRE}}`, `{{FORMAT}}`, `{{TITRE}}`, `{{ACCROCHE}}`, `{{DUREE}}`, `{{NB_PJ}}`, `{{THEMES}}`). Le `href` doit être `scenarios/<slug>/`.
 2. Insère la carte dans `index.html` **juste avant** le marqueur `<!-- SCENARIOS:END -->`.
-3. **Première carte uniquement** : supprime le bloc `<div class="empty">…</div>` (l'état « aucun scénario ») situé entre les marqueurs.
-4. Ne touche à rien d'autre dans `index.html` : la grille et le style sont déjà en place.
+3. Ne touche à rien d'autre dans `index.html` : la grille, l'en-tête (signé Mësti) et le style sont déjà en place. Quand il n'y a aucun scénario, la section reste simplement vide — ne pas afficher de bloc de remplacement.
 
 ## Composants disponibles (détail dans references/components.md)
 

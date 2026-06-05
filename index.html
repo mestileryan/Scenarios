@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Scénarios JDR — Table de jeu</title>
-<meta name="description" content="Recueil de scénarios de jeu de rôle sur table, mis en page pour le meneur de jeu.">
+<title>Mes aventures — Mësti</title>
+<meta name="description" content="Le répertoire de scénarios de jeu de rôle de Mësti, mis en page pour être lus confortablement.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Spectral:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
@@ -42,9 +42,6 @@
   h1{ font-family:var(--font-head); font-weight:600; font-size:clamp(2.4rem,6vw,3.6rem); line-height:1.04; letter-spacing:-.01em; margin-bottom:18px; }
   .lead{ font-size:1.14rem; color:var(--text-muted); }
 
-  .section-label{ font-size:.7rem; letter-spacing:.18em; text-transform:uppercase; color:var(--text-faint); font-weight:700; margin-bottom:20px; display:flex; align-items:center; gap:14px; }
-  .section-label::after{ content:""; flex:1; height:1px; background:var(--border-soft); }
-
   /* ===== GRILLE DE SCÉNARIOS ===== */
   .grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(300px,1fr)); gap:20px; }
   .card{ display:flex; flex-direction:column; background:var(--bg-elev); border:1px solid var(--border); border-radius:var(--radius); padding:24px 24px 22px; transition:border-color .2s, transform .2s, box-shadow .2s; position:relative; overflow:hidden; }
@@ -59,46 +56,33 @@
   .card-go{ font-size:.84rem; font-weight:600; color:var(--accent-soft); display:inline-flex; align-items:center; gap:6px; transition:gap .2s; }
   .card:hover .card-go{ gap:11px; }
 
-  /* ===== ÉTAT VIDE ===== */
-  .empty{ grid-column:1/-1; text-align:center; padding:64px 24px; border:1px dashed var(--border); border-radius:var(--radius); color:var(--text-faint); }
-  .empty strong{ color:var(--text-muted); display:block; font-family:var(--font-head); font-size:1.2rem; font-weight:600; margin-bottom:8px; }
-  .empty code{ font-family:ui-monospace, monospace; font-size:.85rem; color:var(--accent-soft); background:var(--bg-elev); padding:2px 7px; border-radius:6px; }
-
-  footer{ margin-top:72px; padding-top:24px; border-top:1px solid var(--border-soft); font-size:.82rem; color:var(--text-faint); }
-  footer a{ color:var(--text-muted); border-bottom:1px solid var(--border); }
-  footer a:hover{ color:var(--accent-soft); }
+  footer{ margin-top:64px; font-size:.78rem; color:var(--text-faint); }
 </style>
 </head>
 <body>
   <div class="wrap">
 
     <div class="brand">
-      <span class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 7v6c0 4 3.5 7 8 9 4.5-2 8-5 8-9V7l-8-5Z"/><path d="m9 12 2 2 4-4"/></svg></span>
+      <span class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
       <div>
-        <div class="brand-title">Scénarios JDR</div>
-        <div class="brand-sub">Table · Meneur de jeu</div>
+        <div class="brand-title">Mësti</div>
+        <div class="brand-sub">Scénarios de jeu de rôle</div>
       </div>
     </div>
 
     <header class="hero">
-      <span class="eyebrow">Recueil de scénarios</span>
-      <h1>Des aventures prêtes à mener.</h1>
-      <p class="lead">Une collection de scénarios de jeu de rôle sur table, mis en page pour être lus confortablement à la table — y compris dans le noir. Système agnostique, narratif d'abord.</p>
+      <span class="eyebrow">Par Mësti</span>
+      <h1>Mes aventures</h1>
+      <p class="lead">Vous trouverez ci-dessous mon répertoire de scénarios, mis en page pour être lus confortablement. Système agnostique, orienté narratif.</p>
     </header>
-
-    <div class="section-label">Scénarios</div>
 
     <div class="grid" id="scenarios">
       <!-- SCENARIOS:START -->
-      <div class="empty">
-        <strong>Aucun scénario pour l'instant.</strong>
-        Demandez à Claude de créer un scénario&nbsp;: les cartes apparaîtront ici automatiquement.
-      </div>
       <!-- SCENARIOS:END -->
     </div>
 
     <footer>
-      Mis en page avec le skill <code style="font-family:ui-monospace,monospace;color:var(--text-muted)">jdr-scenario</code>. Publié via GitHub&nbsp;Pages.
+      Mise en page réalisée avec l'aide de Claude&nbsp;Code.
     </footer>
 
   </div>
