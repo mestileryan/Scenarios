@@ -1,0 +1,51 @@
+name: Déploiement GitHub Pages
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+# Permissions nécessaires au déploiement Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Une seule exécution à la fois ; on n'annule pas un déploiement en cours
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Assembler le site (sans .git / .claude / .github)
+        run: |
+          mkdir -p _site
+          cp index.html _site/
+          [ -d scenarios ] && cp -r scenarios _site/ || true
+          [ -d assets ] && cp -r assets _site/ || true
+          touch _site/.nojekyll
+
+      - name: Configurer Pages
+        uses: actions/configure-pages@v5
+
+      - name: Uploader l'artefact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Déployer sur GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

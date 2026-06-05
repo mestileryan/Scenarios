@@ -1,0 +1,14 @@
+<!-- Carte de scénario pour la page d'accueil (index.html à la racine du repo).
+     À insérer juste avant le marqueur <!-- SCENARIOS:END -->.
+     href pointe vers le dossier du scénario : scenarios/<slug>/ -->
+<a class="card" href="scenarios/{{SLUG}}/">
+  <span class="card-eyebrow">{{GENRE}} · {{FORMAT}}</span>
+  <h2 class="card-title">{{TITRE}}</h2>
+  <p class="card-lead">{{ACCROCHE}}</p>
+  <div class="card-meta">
+    <span>{{DUREE}}</span>
+    <span>{{NB_PJ}}</span>
+    <span>{{THEMES}}</span>
+  </div>
+  <span class="card-go">Ouvrir le scénario →</span>
+</a>

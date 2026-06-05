@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{TITRE}} — Scénario JDR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Spectral:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+  /* ===== PALETTE — change --accent + radial gradients pour reskiner ===== */
+  :root{
+    --bg:#131519; --bg-elev:#1a1d23; --bg-elev-2:#21252e; --bg-sidebar:#15171c;
+    --text:#e7e3da; --text-muted:#9aa0ab; --text-faint:#6b7078;
+    --border:#2b2f38; --border-soft:#23272f;
+    --accent:#ef8b3c; --accent-soft:#f6b271;          /* couleur de thème (ici "braise") */
+    --red:#ef5a5a; --blue:#57a6f5; --green:#5ec27e; --gold:#e0b94e;
+    --radius-sm:9px; --shadow:0 18px 40px -18px rgba(0,0,0,.7); --sidebar-w:280px;
+    --font-body:'Inter', system-ui, sans-serif; --font-head:'Spectral', Georgia, serif;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{ font-family:var(--font-body); color:var(--text); line-height:1.75; font-size:16px; -webkit-font-smoothing:antialiased;
+    background:radial-gradient(1200px 600px at 80% -10%, rgba(239,139,60,.08), transparent 60%), radial-gradient(900px 500px at -10% 110%, rgba(169,116,240,.06), transparent 55%), var(--bg); }
+  a{ color:inherit; } ::selection{ background:rgba(239,139,60,.32); }
+  body::before{ content:""; position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.035;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+  .layout{ display:flex; min-height:100vh; position:relative; z-index:1; }
+  .sidebar{ width:var(--sidebar-w); flex:0 0 var(--sidebar-w); position:sticky; top:0; height:100vh; overflow-y:auto; background:var(--bg-sidebar); border-right:1px solid var(--border); padding:28px 18px 40px; }
+  .brand{ display:flex; align-items:center; gap:12px; padding:0 6px 22px; }
+  .brand-mark{ width:38px; height:38px; flex:0 0 38px; display:grid; place-items:center; border-radius:10px; background:linear-gradient(145deg, var(--accent), #b85c1e); box-shadow:0 0 18px -2px rgba(239,139,60,.5); }
+  .brand-mark svg{ width:20px; height:20px; }
+  .brand-title{ font-family:var(--font-head); font-weight:600; font-size:1.05rem; line-height:1.2; }
+  .brand-sub{ font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--text-faint); }
+  .nav-group{ margin-top:20px; }
+  .nav-label{ font-size:.68rem; letter-spacing:.18em; text-transform:uppercase; color:var(--text-faint); padding:0 12px; margin-bottom:8px; font-weight:600; }
+  .nav a{ display:flex; align-items:center; gap:10px; padding:9px 12px; border-radius:9px; color:var(--text-muted); text-decoration:none; font-size:.92rem; font-weight:500; transition:background .18s, color .18s; }
+  .nav a .dot{ width:6px; height:6px; border-radius:50%; background:currentColor; opacity:.4; flex:0 0 6px; }
+  .nav a.sub{ padding-left:30px; font-size:.86rem; }
+  .nav a:hover{ background:var(--bg-elev-2); color:var(--text); }
+  .nav a.active{ background:rgba(239,139,60,.12); color:var(--accent-soft); }
+  .nav a.active .dot{ opacity:1; background:var(--accent); box-shadow:0 0 8px var(--accent); }
+  .sidebar-foot{ margin-top:28px; padding:14px 12px 0; border-top:1px solid var(--border-soft); font-size:.74rem; color:var(--text-faint); line-height:1.5; }
+  .content{ flex:1 1 auto; min-width:0; padding:56px clamp(20px,5vw,72px) 120px; max-width:980px; }
+
+  .topbar{ display:none; position:sticky; top:0; z-index:40; align-items:center; gap:14px; padding:12px 16px; background:rgba(21,23,28,.92); backdrop-filter:blur(10px); border-bottom:1px solid var(--border); }
+  .burger{ width:42px; height:42px; border:1px solid var(--border); border-radius:10px; background:var(--bg-elev-2); color:var(--text); cursor:pointer; display:grid; place-items:center; }
+  .burger svg{ width:20px; height:20px; }
+  .topbar-title{ font-family:var(--font-head); font-weight:600; }
+  #nav-toggle{ display:none; } .scrim{ display:none; }
+
+  .hero{ margin-bottom:48px; }
+  .eyebrow{ display:inline-flex; align-items:center; gap:8px; font-size:.74rem; letter-spacing:.2em; text-transform:uppercase; color:var(--accent); font-weight:600; margin-bottom:16px; }
+  .eyebrow::before{ content:""; width:28px; height:1px; background:var(--accent); }
+  h1{ font-family:var(--font-head); font-weight:600; font-size:clamp(2.2rem,5vw,3.4rem); line-height:1.05; letter-spacing:-.01em; margin-bottom:14px; }
+  .lead{ font-size:1.12rem; color:var(--text-muted); max-width:62ch; }
+  .meta-row{ display:flex; flex-wrap:wrap; gap:10px; margin-top:24px; }
+  .meta{ font-size:.82rem; color:var(--text-muted); background:var(--bg-elev); border:1px solid var(--border); padding:6px 12px; border-radius:999px; }
+  .meta strong{ color:var(--text); font-weight:600; }
+
+  section{ scroll-margin-top:30px; padding-top:24px; }
+  h2{ font-family:var(--font-head); font-weight:600; font-size:clamp(1.6rem,3vw,2.15rem); line-height:1.15; margin:48px 0 6px; padding-bottom:14px; border-bottom:1px solid var(--border); display:flex; align-items:baseline; gap:14px; }
+  h2 .num{ font-size:.8rem; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); font-family:var(--font-body); font-weight:700; }
+  h3{ font-family:var(--font-head); font-weight:600; font-size:1.35rem; margin:34px 0 10px; }
+  h4{ font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; color:var(--text-faint); margin:26px 0 8px; font-weight:700; }
+  p{ margin:14px 0; max-width:70ch; } p + p{ margin-top:0; }
+  ul, ol{ margin:14px 0 14px 22px; max-width:68ch; } li{ margin:6px 0; }
+  strong{ color:#fff; font-weight:600; } em{ color:var(--accent-soft); }
+  hr{ border:none; border-top:1px solid var(--border-soft); margin:40px 0; }
+
+  /* ===== CALLOUTS ===== */
+  .callout{ position:relative; background:var(--bg-elev); border:1px solid var(--border-soft); border-left:4px solid var(--accent); border-radius:var(--radius-sm); padding:18px 20px 18px 56px; margin:24px 0; box-shadow:var(--shadow); }
+  .callout .ico{ position:absolute; left:16px; top:18px; width:24px; height:24px; color:var(--accent); }
+  .callout .ico svg{ width:100%; height:100%; }
+  .callout .c-title{ font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; font-weight:700; color:var(--accent); margin-bottom:4px; }
+  .callout p{ margin:6px 0 0; }
+  .callout.read{ border-left-color:var(--gold); background:linear-gradient(180deg, rgba(224,185,78,.07), rgba(224,185,78,.02)); }
+  .callout.read .ico, .callout.read .c-title{ color:var(--gold); }
+  .callout.read p{ font-family:var(--font-head); font-style:italic; font-size:1.05rem; color:#efe9dc; }
+  .callout.gm{ border-left-color:var(--blue); } .callout.gm .ico, .callout.gm .c-title{ color:var(--blue); }
+  .callout.warn{ border-left-color:var(--red); } .callout.warn .ico, .callout.warn .c-title{ color:var(--red); }
+
+  /* ===== ÉPREUVES — difficulté en mots (3 niveaux + très difficile) ===== */
+  .epreuve{ display:inline-flex; align-items:center; gap:7px; font-weight:600; font-size:.8rem; letter-spacing:.02em; padding:3px 11px 3px 9px; border-radius:999px; border:1px solid currentColor; white-space:nowrap; vertical-align:middle; line-height:1.4; }
+  .epreuve .gauge{ display:inline-flex; gap:2px; }
+  .epreuve .gauge i{ width:4px; height:4px; border-radius:50%; background:currentColor; opacity:.28; }
+  .epreuve.facile        { color:var(--green); background:rgba(94,194,126,.13); }
+  .epreuve.modere        { color:var(--gold);  background:rgba(224,185,78,.13); }
+  .epreuve.difficile     { color:var(--accent);background:rgba(239,139,60,.14); }
+  .epreuve.tres-difficile{ color:var(--red);   background:rgba(239,90,90,.14); }
+  .epreuve.facile         .gauge i:nth-child(-n+1){ opacity:1; }
+  .epreuve.modere         .gauge i:nth-child(-n+2){ opacity:1; }
+  .epreuve.difficile      .gauge i:nth-child(-n+3){ opacity:1; }
+  .epreuve.tres-difficile .gauge i{ opacity:1; }
+  .scale{ display:flex; flex-wrap:wrap; gap:8px; margin:18px 0 4px; }
+
+  /* ===== DÉROULANTS (PNJ / secrets) ===== */
+  details{ background:var(--bg-elev); border:1px solid var(--border); border-radius:var(--radius-sm); margin:22px 0; overflow:hidden; }
+  details[open]{ box-shadow:var(--shadow); }
+  summary{ cursor:pointer; list-style:none; padding:14px 18px; display:flex; align-items:center; gap:12px; font-weight:600; font-size:.95rem; transition:background .18s; }
+  summary::-webkit-details-marker{ display:none; }
+  summary:hover{ background:var(--bg-elev-2); }
+  summary .chevron{ width:16px; height:16px; flex:0 0 16px; color:var(--text-faint); transition:transform .25s ease; }
+  details[open] summary .chevron{ transform:rotate(90deg); color:var(--accent); }
+  summary .tag{ margin-left:auto; font-size:.66rem; letter-spacing:.12em; text-transform:uppercase; font-weight:700; padding:3px 9px; border-radius:6px; background:var(--bg-elev-2); color:var(--text-faint); }
+  details.secret summary{ color:var(--accent); }
+  details.secret summary .tag{ color:var(--accent); background:rgba(239,139,60,.12); }
+  details.secret summary .chevron{ color:var(--accent); }
+  .details-body{ padding:4px 18px 20px; border-top:1px solid var(--border-soft); }
+
+  /* ===== FICHE PNJ NARRATIVE ===== */
+  .pnj .p-name{ font-family:var(--font-head); font-size:1.25rem; font-weight:600; color:#fff; margin:12px 0 2px; }
+  .pnj .p-concept{ font-style:italic; color:var(--text-muted); margin:0 0 6px; }
+  .pnj .p-line{ display:flex; gap:14px; padding:10px 0; border-top:1px solid var(--border-soft); }
+  .pnj .p-line .k{ flex:0 0 130px; font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700; padding-top:3px; }
+  .pnj .p-line .v{ margin:0; } .pnj .p-voice{ font-family:var(--font-head); font-style:italic; color:#efe9dc; }
+
+  table{ width:100%; border-collapse:collapse; margin:18px 0; font-size:.9rem; }
+  th, td{ text-align:left; padding:10px 14px; border-bottom:1px solid var(--border-soft); }
+  th{ font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; color:var(--text-faint); }
+  td:first-child{ color:var(--accent); font-weight:600; font-variant-numeric:tabular-nums; width:64px; }
+  tbody tr:hover{ background:var(--bg-elev); }
+
+  @media (max-width: 880px){
+    .topbar{ display:flex; }
+    .sidebar{ position:fixed; top:0; left:0; z-index:50; transform:translateX(-100%); transition:transform .28s ease; box-shadow:0 0 60px rgba(0,0,0,.6); }
+    #nav-toggle:checked ~ .layout .sidebar{ transform:translateX(0); }
+    #nav-toggle:checked ~ .layout .scrim{ display:block; position:fixed; inset:0; z-index:45; background:rgba(0,0,0,.55); }
+    .content{ padding:32px 20px 100px; }
+    .pnj .p-line{ flex-direction:column; gap:2px; } .pnj .p-line .k{ flex:none; }
+  }
+</style>
+</head>
+<body>
+
+<input type="checkbox" id="nav-toggle">
+
+<!-- Barre mobile (hamburger) -->
+<div class="topbar">
+  <label class="burger" for="nav-toggle" aria-label="Ouvrir le menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18" stroke-linecap="round"/></svg>
+  </label>
+  <span class="topbar-title">{{TITRE_COURT}}</span>
+</div>
+
+<div class="layout">
+  <label class="scrim" for="nav-toggle"></label>
+
+  <!-- ============ SOMMAIRE (un lien par section/scène, href = #id de la cible) ============ -->
+  <aside class="sidebar">
+    <div class="brand">
+      <span class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 7v6c0 4 3.5 7 8 9 4.5-2 8-5 8-9V7l-8-5Z"/><path d="m9 12 2 2 4-4"/></svg></span>
+      <div><div class="brand-title">{{TITRE}}</div><div class="brand-sub">{{SOUS_TITRE}}</div></div>
+    </div>
+    <nav class="nav">
+      <div class="nav-group">
+        <div class="nav-label">Sommaire</div>
+        <a href="#intro"><span class="dot"></span>Introduction</a>
+        <a href="#intro-echelle" class="sub">Échelle de difficulté</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Aventure</div>
+        <a href="#acte1"><span class="dot"></span>Acte 1 — {{TITRE_ACTE_1}}</a>
+        <a href="#acte1-s1" class="sub">Scène : {{SCENE}}</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Références</div>
+        <a href="#annexes"><span class="dot"></span>Annexes</a>
+      </div>
+    </nav>
+    <div class="sidebar-foot">Lisez à voix haute les passages <em>dorés</em>, ouvrez les blocs <strong>Secret</strong> au bon moment.</div>
+  </aside>
+
+  <!-- ============ CONTENU ============ -->
+  <main class="content">
+
+    <header class="hero">
+      <span class="eyebrow">{{GENRE}} · {{FORMAT}}</span>
+      <h1>{{TITRE}}</h1>
+      <p class="lead">{{ACCROCHE — 1 ou 2 phrases qui posent l'ambiance et le mystère central.}}</p>
+      <div class="meta-row">
+        <span class="meta"><strong>Durée</strong> · {{DUREE}}</span>
+        <span class="meta"><strong>Groupe</strong> · {{NB_PJ}}</span>
+        <span class="meta"><strong>Système</strong> · libre / agnostique</span>
+        <span class="meta"><strong>Thèmes</strong> · {{THEMES}}</span>
+      </div>
+    </header>
+
+    <section id="intro">
+      <h2><span class="num">Partie 0</span> Introduction</h2>
+      <h3>Synopsis & accroche</h3>
+      <p>{{Contexte et situation de départ.}}</p>
+
+      <!-- CALLOUT : à lire à voix haute -->
+      <div class="callout read">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5Z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg></span>
+        <div class="c-title">À lire à voix haute</div>
+        <p>« {{Texte d'ambiance à narrer directement aux joueurs.}} »</p>
+      </div>
+
+      <h3>Notes pour le MJ</h3>
+      <!-- CALLOUT : info MJ -->
+      <div class="callout gm">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span>
+        <div class="c-title">Info MJ</div>
+        <p>{{Conseil de mise en scène, rythme, adaptation.}}</p>
+      </div>
+
+      <div id="intro-echelle"></div>
+      <h3>Échelle de difficulté</h3>
+      <p>Annoncez le niveau d'une action incertaine avec un mot, puis traduisez-le dans votre système.</p>
+      <div class="scale">
+        <span class="epreuve facile"><span class="gauge"><i></i><i></i><i></i></span>Facile</span>
+        <span class="epreuve modere"><span class="gauge"><i></i><i></i><i></i></span>Modéré</span>
+        <span class="epreuve difficile"><span class="gauge"><i></i><i></i><i></i></span>Difficile</span>
+        <span class="epreuve tres-difficile"><span class="gauge"><i></i><i></i><i></i></span>Très difficile</span>
+      </div>
+    </section>
+
+    <section id="acte1">
+      <h2><span class="num">Acte 1</span> {{TITRE_ACTE_1}}</h2>
+      <div id="acte1-s1"></div>
+      <h3>Scène 1 — {{SCENE}}</h3>
+      <p>{{Description de la scène. Listez les actions possibles avec une pastille de difficulté :}}</p>
+      <ul>
+        <li>{{Action}} — <span class="epreuve difficile"><span class="gauge"><i></i><i></i><i></i></span>Difficile</span></li>
+        <li>{{Action}} — <span class="epreuve facile"><span class="gauge"><i></i><i></i><i></i></span>Facile</span></li>
+      </ul>
+
+      <!-- CALLOUT : danger -->
+      <div class="callout warn">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/></svg></span>
+        <div class="c-title">Danger</div>
+        <p>{{Menace de la scène, conséquence narrative.}}</p>
+      </div>
+
+      <!-- FICHE PNJ (déroulant) -->
+      <details>
+        <summary>
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="m9 6 6 6-6 6"/></svg>
+          Fiche — {{NOM_PNJ}}
+          <span class="tag">PNJ</span>
+        </summary>
+        <div class="details-body pnj">
+          <div class="p-name">{{NOM_PNJ}}</div>
+          <p class="p-concept">{{Concept en une ligne.}}</p>
+          <div class="p-line"><span class="k">Ce qu'il veut</span><p class="v">{{Objectif.}}</p></div>
+          <div class="p-line"><span class="k">Ce qu'il cache</span><p class="v">{{Secret ou nuance.}}</p></div>
+          <div class="p-line"><span class="k">Sa voix</span><p class="v p-voice">{{Manière de parler, tic, ton — pour l'incarner.}}</p></div>
+          <div class="p-line"><span class="k">Levier dramatique</span><p class="v">{{Ce qui le fait basculer.}}</p></div>
+        </div>
+      </details>
+
+      <!-- SECRET (déroulant à n'ouvrir qu'au bon moment) -->
+      <details class="secret">
+        <summary>
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="m9 6 6 6-6 6"/></svg>
+          {{Titre du secret}} — ne pas révéler tout de suite
+          <span class="tag">Secret</span>
+        </summary>
+        <div class="details-body">
+          <p>{{Information cachée, révélation, twist.}}</p>
+        </div>
+      </details>
+    </section>
+
+    <section id="annexes">
+      <h2><span class="num">Annexes</span> Références de table</h2>
+      <h3>Tables narratives</h3>
+      <h4>{{Titre de la table}} (d6)</h4>
+      <table>
+        <thead><tr><th>d6</th><th>Résultat</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>{{…}}</td></tr>
+          <tr><td>2</td><td>{{…}}</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Récompenses</h3>
+      <ul>
+        <li><strong>{{Objet}}</strong> — {{effet décrit par la fiction, pas par des chiffres.}}</li>
+      </ul>
+      <hr>
+      <p style="color:var(--text-faint); font-size:.85rem;">{{Note de fin / crédits.}}</p>
+    </section>
+
+  </main>
+</div>
+
+<!-- Surlignage auto du lien actif (scrollspy) + fermeture du menu mobile. Tout le reste marche sans JS. -->
+<script>
+  const links = [...document.querySelectorAll('.nav a')];
+  const targets = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  const byId = {}; links.forEach(a => byId[a.getAttribute('href').slice(1)] = a);
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { links.forEach(l => l.classList.remove('active')); const link = byId[e.target.id]; if (link) link.classList.add('active'); } });
+  }, { rootMargin: '-20% 0px -70% 0px', threshold: 0 });
+  targets.forEach(t => obs.observe(t));
+  const toggle = document.getElementById('nav-toggle');
+  document.querySelectorAll('.nav a').forEach(a => a.addEventListener('click', () => { toggle.checked = false; }));
+</script>
+
+</body>
+</html>
