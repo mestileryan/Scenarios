@@ -2,6 +2,9 @@
      À insérer juste avant le marqueur <!-- SCENARIOS:END -->.
      href pointe vers le dossier du scénario : scenarios/<slug>/ -->
 <a class="card" href="scenarios/{{SLUG}}/">
+  <!-- Vignette (optionnelle) : place cover.png dans scenarios/<slug>/ ; sinon supprime cette ligne.
+       La règle CSS .card-cover est déjà dans index.html. -->
+  <img class="card-cover" src="scenarios/{{SLUG}}/cover.png" alt="">
   <span class="card-eyebrow">{{GENRE}} · {{FORMAT}}</span>
   <h2 class="card-title">{{TITRE}}</h2>
   <p class="card-lead">{{ACCROCHE}}</p>

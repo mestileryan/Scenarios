@@ -48,6 +48,7 @@
   .card::before{ content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background:linear-gradient(180deg, var(--accent), transparent); opacity:0; transition:opacity .2s; }
   .card:hover{ border-color:#3a3f4b; transform:translateY(-3px); box-shadow:var(--shadow); }
   .card:hover::before{ opacity:1; }
+  .card-cover{ display:block; width:calc(100% + 48px); height:170px; object-fit:cover; margin:-24px -24px 18px; border-bottom:1px solid var(--border); background:#fff; }
   .card-eyebrow{ font-size:.7rem; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:10px; }
   .card-title{ font-family:var(--font-head); font-weight:600; font-size:1.45rem; line-height:1.15; margin-bottom:10px; color:#fff; }
   .card-lead{ font-size:.94rem; color:var(--text-muted); margin-bottom:18px; flex:1; }
@@ -65,19 +66,29 @@
     <div class="brand">
       <span class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
       <div>
-        <div class="brand-title">Mësti</div>
-        <div class="brand-sub">Scénarios de jeu de rôle</div>
+        <div class="brand-title">La scénariothèque de Mësti</div>
       </div>
     </div>
 
     <header class="hero">
       <span class="eyebrow">Par Mësti</span>
-      <h1>Mes aventures</h1>
       <p class="lead">Vous trouverez ci-dessous mon répertoire de scénarios, mis en page pour être lus confortablement. Système agnostique, orienté narratif.</p>
     </header>
 
     <div class="grid" id="scenarios">
       <!-- SCENARIOS:START -->
+      <a class="card" href="scenarios/le-lagon-bleu/">
+        <img class="card-cover" src="scenarios/le-lagon-bleu/cover.png" alt="">
+        <span class="card-eyebrow">Noir · One-shot</span>
+        <h2 class="card-title">Fausse Note</h2>
+        <p class="card-lead">Un artiste de cabaret au bout du rouleau accepte un soir d'essai dans un club parisien de standing, aussi discret que feutré.</p>
+        <div class="card-meta">
+          <span>2 h à 2 h 30</span>
+          <span>1 joueur</span>
+          <span>Noir · Introspection · Action</span>
+        </div>
+        <span class="card-go">Ouvrir le scénario →</span>
+      </a>
       <!-- SCENARIOS:END -->
     </div>
 

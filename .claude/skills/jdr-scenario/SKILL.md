@@ -30,11 +30,11 @@ Génère un scénario de jeu de rôle dans un **seul fichier `index.html`** : th
 
 1. **Pars du template.** Lis `assets/template.html` : il contient tout le CSS prêt à l'emploi et un squelette commenté avec un exemple de chaque composant. Copie-le et remplis-le ; ne réécris pas le CSS.
 2. **Consulte les composants si besoin.** `references/components.md` est l'aide-mémoire : quel encadré utiliser, comment écrire une pastille de difficulté, comment structurer une fiche PNJ ou un secret.
-3. **Structure le scénario** à partir du texte brut fourni, en Introduction → Actes (avec scènes) → Annexes. Donne un `id` à chaque `<section>` et un ancrage `<div id="...">` avant chaque scène, puis ajoute le lien correspondant dans le sommaire. Si l'utilisateur n'a pas de contenu précis, propose un scénario complet et cohérent.
+3. **Structure le scénario** à partir du texte brut fourni, en Pitch → Introduction → Actes (avec scènes) → Annexes. Le **Pitch** est un chapitre à part, en tête : le texte de présentation **restitué tel quel** au joueur, mis en **citation** (`.pitch-quote`) et **sans** encadré « à voix haute ». Donne un `id` à chaque `<section>` et un ancrage `<div id="...">` avant chaque scène, puis ajoute le lien correspondant dans le sommaire. Si l'utilisateur n'a pas de contenu précis, propose un scénario complet et cohérent.
 4. **Remplis le contenu** : accroche, synopsis, notes MJ, scènes avec actions et difficultés, fiches PNJ, secrets, tables aléatoires, récompenses.
-5. **Lien retour vers l'accueil.** Dans la sidebar du scénario, enveloppe le bloc `.brand` dans `<a href="../../" ...>` pour que le MJ revienne au recueil. (Le chemin `../../` part de `scenarios/<slug>/` vers la racine.)
+5. **Lien retour vers l'accueil.** Déjà intégré au template : le bloc-titre est enveloppé dans `<a class="brand-link" href="../../">` (le chemin `../../` part de `scenarios/<slug>/` vers la racine). Rien à câbler — laisse-le tel quel.
 6. **Choisis un slug** en kebab-case ASCII à partir du titre (minuscules, sans accents ni espaces ; ex. « Le Manoir des Murmures » → `le-manoir-des-murmures`).
-7. **Enregistre le scénario** dans le repo : `scenarios/<slug>/index.html`.
+7. **Enregistre le scénario** dans le repo : `scenarios/<slug>/index.html`. Les **images** (cover, plan…) vont dans **le même dossier** et se référencent en chemin **relatif** (`src="cover.png"`, `src="plan.png"`) — ça marche aussi une fois publié. Si le scénario a une `cover.png`, garde la ligne `<img class="cover">` du hero ; sinon supprime-la.
 8. **Mets à jour la page d'accueil** (`index.html` à la racine) — voir la section ci-dessous.
 9. **Présente le résultat** : indique le chemin du scénario, la carte ajoutée, et rappelle que le site se publie tout seul au prochain push (GitHub Pages).
 
@@ -42,15 +42,19 @@ Génère un scénario de jeu de rôle dans un **seul fichier `index.html`** : th
 
 La racine du repo contient `index.html`, le recueil qui liste les scénarios sous forme de cartes. À chaque nouveau scénario :
 
-1. Copie le gabarit `assets/card.html` et remplis-le (`{{SLUG}}`, `{{GENRE}}`, `{{FORMAT}}`, `{{TITRE}}`, `{{ACCROCHE}}`, `{{DUREE}}`, `{{NB_PJ}}`, `{{THEMES}}`). Le `href` doit être `scenarios/<slug>/`.
+1. Copie le gabarit `assets/card.html` et remplis-le (`{{SLUG}}`, `{{GENRE}}`, `{{FORMAT}}`, `{{TITRE}}`, `{{ACCROCHE}}`, `{{DUREE}}`, `{{NB_PJ}}`, `{{THEMES}}`). Le `href` doit être `scenarios/<slug>/`. Garde la ligne `<img class="card-cover">` si le scénario a une `cover.png` (la règle CSS `.card-cover` est déjà dans `index.html`) ; sinon supprime-la.
 2. Insère la carte dans `index.html` **juste avant** le marqueur `<!-- SCENARIOS:END -->`.
 3. Ne touche à rien d'autre dans `index.html` : la grille, l'en-tête (signé Mësti) et le style sont déjà en place. Quand il n'y a aucun scénario, la section reste simplement vide — ne pas afficher de bloc de remplacement.
 
 ## Composants disponibles (détail dans references/components.md)
 
-- **Callouts** : `read` (à lire à voix haute, doré), `gm` (info MJ, bleu), `warn` (danger, rouge).
-- **Pastilles d'épreuve** : `facile`, `modere`, `difficile`, `tres-difficile`. Toujours 3 points dans la jauge ; le CSS gère le remplissage selon la classe.
+- **Callouts** : `read` (à lire à voix haute, doré), `gm` (info MJ, bleu), `warn` (danger, rouge — à réserver aux vrais dangers ; beaucoup de remarques de coulisses sont mieux en `gm`).
+- **Pitch en citation** : `.pitch-quote` — le texte de présentation donné tel quel au joueur, en serif italique, distinct des callouts « à voix haute ».
+- **Cover** : `<img class="cover">` en bannière d'en-tête, et `.card-cover` en vignette sur la carte d'accueil. Fichiers image dans le dossier du scénario.
+- **Pastille mise en avant** : `.meta.ton` pour faire ressortir une méta de l'en-tête (le ton, p. ex.).
+- **Pastilles d'épreuve** : `facile`, `modere`, `difficile`, `tres-difficile`. Toujours 3 points dans la jauge ; le CSS gère le remplissage selon la classe. Beaucoup de scénarios n'ont que de rares jets : ne sur-pastille pas.
 - **Déroulants** : `<details>` + `.pnj` pour les fiches narratives, `<details class="secret">` pour ce qui se révèle plus tard.
+- **Plan / carte** : soit le schéma maison `.plan` (grille CSS), soit une **image** (`<img src="plan.png">`) si tu disposes d'un vrai plan.
 - **Sommaire latéral** fixe avec surlignage automatique de la section en cours et repli en hamburger sur mobile.
 - **Tables** aléatoires et listes de **récompenses** décrites par la fiction.
 

@@ -28,7 +28,9 @@
 
   .layout{ display:flex; min-height:100vh; position:relative; z-index:1; }
   .sidebar{ width:var(--sidebar-w); flex:0 0 var(--sidebar-w); position:sticky; top:0; height:100vh; overflow-y:auto; background:var(--bg-sidebar); border-right:1px solid var(--border); padding:28px 18px 40px; }
-  .brand{ display:flex; align-items:center; gap:12px; padding:0 6px 22px; }
+  .brand{ display:flex; align-items:center; gap:12px; padding:10px 8px; }
+  .brand-link{ display:block; text-decoration:none; border-radius:10px; margin-bottom:14px; transition:background .18s; }   /* bloc-titre = lien retour recueil */
+  .brand-link:hover{ background:var(--bg-elev-2); }
   .brand-mark{ width:38px; height:38px; flex:0 0 38px; display:grid; place-items:center; border-radius:10px; background:linear-gradient(145deg, var(--accent), #b85c1e); box-shadow:0 0 18px -2px rgba(239,139,60,.5); }
   .brand-mark svg{ width:20px; height:20px; }
   .brand-title{ font-family:var(--font-head); font-weight:600; font-size:1.05rem; line-height:1.2; }
@@ -58,6 +60,16 @@
   .meta-row{ display:flex; flex-wrap:wrap; gap:10px; margin-top:24px; }
   .meta{ font-size:.82rem; color:var(--text-muted); background:var(--bg-elev); border:1px solid var(--border); padding:6px 12px; border-radius:999px; }
   .meta strong{ color:var(--text); font-weight:600; }
+  .meta.ton{ border-color:var(--accent); background:rgba(239,139,60,.12); color:var(--accent-soft); font-size:.9rem; padding:7px 15px; box-shadow:0 0 16px -6px var(--accent); }  /* pastille mise en avant */
+  .meta.ton strong{ color:var(--accent-soft); }
+
+  /* ===== COVER (bannière d'en-tête, optionnelle — fichier cover.png dans le dossier du scénario) ===== */
+  .cover{ display:block; width:100%; height:auto; max-height:360px; object-fit:cover; border-radius:14px; border:1px solid var(--border); box-shadow:var(--shadow); background:#fff; margin-bottom:28px; }
+
+  /* ===== PITCH EN CITATION (texte de présentation donné tel quel au joueur) ===== */
+  .pitch-quote{ position:relative; border-left:4px solid var(--accent); background:linear-gradient(180deg, rgba(239,139,60,.06), rgba(239,139,60,.01)); border-radius:0 var(--radius-sm) var(--radius-sm) 0; padding:20px 26px; margin:24px 0; box-shadow:var(--shadow); }
+  .pitch-quote p{ font-family:var(--font-head); font-style:italic; font-size:1.14rem; line-height:1.7; color:#efe9dc; max-width:none; }
+  .pitch-quote p + p{ margin-top:14px; }
 
   section{ scroll-margin-top:30px; padding-top:24px; }
   h2{ font-family:var(--font-head); font-weight:600; font-size:clamp(1.6rem,3vw,2.15rem); line-height:1.15; margin:48px 0 6px; padding-bottom:14px; border-bottom:1px solid var(--border); display:flex; align-items:baseline; gap:14px; }
@@ -149,13 +161,17 @@
 
   <!-- ============ SOMMAIRE (un lien par section/scène, href = #id de la cible) ============ -->
   <aside class="sidebar">
-    <div class="brand">
-      <span class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 7v6c0 4 3.5 7 8 9 4.5-2 8-5 8-9V7l-8-5Z"/><path d="m9 12 2 2 4-4"/></svg></span>
-      <div><div class="brand-title">{{TITRE}}</div><div class="brand-sub">{{SOUS_TITRE}}</div></div>
-    </div>
+    <!-- Bloc-titre = lien retour vers le recueil (../../ depuis scenarios/<slug>/) -->
+    <a class="brand-link" href="../../" aria-label="Retour au recueil">
+      <div class="brand">
+        <span class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 7v6c0 4 3.5 7 8 9 4.5-2 8-5 8-9V7l-8-5Z"/><path d="m9 12 2 2 4-4"/></svg></span>
+        <div><div class="brand-title">{{TITRE}}</div><div class="brand-sub">{{SOUS_TITRE}}</div></div>
+      </div>
+    </a>
     <nav class="nav">
       <div class="nav-group">
         <div class="nav-label">Sommaire</div>
+        <a href="#pitch"><span class="dot"></span>Pitch</a>
         <a href="#intro"><span class="dot"></span>Introduction</a>
         <a href="#intro-echelle" class="sub">Échelle de difficulté</a>
       </div>
@@ -176,16 +192,26 @@
   <main class="content">
 
     <header class="hero">
+      <!-- COVER (optionnel) : place cover.png dans le dossier du scénario, sinon supprime cette ligne -->
+      <img class="cover" src="cover.png" alt="{{Brève description de l'illustration}}">
       <span class="eyebrow">{{GENRE}} · {{FORMAT}}</span>
       <h1>{{TITRE}}</h1>
-      <p class="lead">{{ACCROCHE — 1 ou 2 phrases qui posent l'ambiance et le mystère central.}}</p>
+      <p class="lead">{{ACCROCHE — un résumé global, à la 3ᵉ personne, sans « tu/vous ».}}</p>
       <div class="meta-row">
         <span class="meta"><strong>Durée</strong> · {{DUREE}}</span>
         <span class="meta"><strong>Groupe</strong> · {{NB_PJ}}</span>
-        <span class="meta"><strong>Système</strong> · libre / agnostique</span>
-        <span class="meta"><strong>Thèmes</strong> · {{THEMES}}</span>
+        <span class="meta ton"><strong>Ton</strong> · {{ex. roleplay ★★★★ · action ★}}</span>
       </div>
     </header>
+
+    <!-- PITCH : texte de présentation à donner tel quel au joueur, mis en citation (sans « à voix haute ») -->
+    <section id="pitch">
+      <h2>Pitch</h2>
+      <p>Texte de présentation du scénario, à transmettre tel quel au joueur pour poser le décor et son personnage.</p>
+      <div class="pitch-quote">
+        <p>{{Le pitch, restitué mot pour mot.}}</p>
+      </div>
+    </section>
 
     <section id="intro">
       <h2><span class="num">Partie 0</span> Introduction</h2>

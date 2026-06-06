@@ -36,5 +36,35 @@ Un `<a href="#id">` par section ou scène. Les liens principaux portent `<span c
 - Tables → `<table>` avec `<th>d6</th>` ; la première colonne (le chiffre) est colorée automatiquement.
 - Récompenses → liste `<ul>`, décrites par leur effet de fiction, pas par des bonus chiffrés.
 
+## 6. Pitch en citation
+Le **Pitch** est un chapitre à part, en tête du document : le texte de présentation **restitué tel quel** au joueur. On le met en **citation** (filet d'accent à gauche, serif italique), pas en callout « à voix haute » :
+
+```html
+<section id="pitch">
+  <h2>Pitch</h2>
+  <p>Texte de présentation du scénario, à transmettre tel quel au joueur.</p>
+  <div class="pitch-quote">
+    <p>Le pitch, restitué mot pour mot…</p>
+  </div>
+</section>
+```
+
+Le résumé du hero (`.lead`), lui, reste **global et à la 3ᵉ personne** (pas de « tu/vous ») — c'est le pitch qui porte l'adresse directe au joueur.
+
+## 7. Cover & vignette (images)
+- **Bannière d'en-tête** : `<img class="cover" src="cover.png" alt="…">` en première ligne du `<header class="hero">`. Optionnelle : supprime la ligne si pas d'illustration.
+- **Vignette d'accueil** : `<img class="card-cover" src="scenarios/<slug>/cover.png" alt="">` en tête de la carte (gabarit `card.html`). La règle `.card-cover` est dans `index.html`.
+- Les fichiers image vivent **dans le dossier du scénario** (`scenarios/<slug>/`) et se référencent en **chemin relatif** — valable en local comme sur GitHub Pages.
+
+## 8. Pastille mise en avant
+`<span class="meta ton">` met une méta de l'en-tête en valeur (bordure et halo d'accent) — typiquement le **ton** du scénario. Les autres métas restent en `.meta` simple.
+
+## 9. Plan / carte
+Deux options : le **schéma maison** (grille CSS `.plan` + `.room`), ou une **image** si tu disposes d'un vrai plan :
+
+```html
+<img src="plan.png" alt="Plan du lieu" style="display:block;width:100%;height:auto;border:1px solid var(--border);border-radius:9px;background:#fff;">
+```
+
 ## Reskin rapide
 Pour changer l'ambiance, modifie seulement `--accent` et `--accent-soft` dans `:root`, et éventuellement les deux `radial-gradient` du `body`. Le reste de la palette (sombre, lisible dans le noir) reste tel quel.

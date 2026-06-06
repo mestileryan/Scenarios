@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Le Lagon Bleu — Scénario JDR</title>
+<title>Fausse Note — Scénario JDR</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Spectral:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
@@ -28,12 +28,12 @@
 
   .layout{ display:flex; min-height:100vh; position:relative; z-index:1; }
   .sidebar{ width:var(--sidebar-w); flex:0 0 var(--sidebar-w); position:sticky; top:0; height:100vh; overflow-y:auto; background:var(--bg-sidebar); border-right:1px solid var(--border); padding:28px 18px 40px; }
-  .brand{ display:flex; align-items:center; gap:12px; padding:0 6px 22px; }
+  .brand{ display:flex; align-items:center; gap:12px; padding:10px 8px; }
   .brand-mark{ width:38px; height:38px; flex:0 0 38px; display:grid; place-items:center; border-radius:10px; background:linear-gradient(145deg, var(--accent), #1d5f8c); box-shadow:0 0 18px -2px rgba(78,168,230,.5); }
   .brand-mark svg{ width:20px; height:20px; }
   .brand-title{ font-family:var(--font-head); font-weight:600; font-size:1.05rem; line-height:1.2; }
   .brand-sub{ font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--text-faint); }
-  .brand-link{ text-decoration:none; display:block; border-radius:10px; transition:background .18s; }
+  .brand-link{ text-decoration:none; display:block; border-radius:10px; transition:background .18s; margin-bottom:14px; }
   .brand-link:hover{ background:var(--bg-elev-2); }
   .nav-group{ margin-top:20px; }
   .nav-label{ font-size:.68rem; letter-spacing:.18em; text-transform:uppercase; color:var(--text-faint); padding:0 12px; margin-bottom:8px; font-weight:600; }
@@ -60,6 +60,13 @@
   .meta-row{ display:flex; flex-wrap:wrap; gap:10px; margin-top:24px; }
   .meta{ font-size:.82rem; color:var(--text-muted); background:var(--bg-elev); border:1px solid var(--border); padding:6px 12px; border-radius:999px; }
   .meta strong{ color:var(--text); font-weight:600; }
+  .meta.ton{ border-color:var(--accent); background:rgba(78,168,230,.12); color:var(--accent-soft); font-size:.9rem; padding:7px 15px; box-shadow:0 0 16px -6px var(--accent); }
+  .meta.ton strong{ color:var(--accent-soft); }
+
+  /* ===== PITCH EN CITATION ===== */
+  .pitch-quote{ position:relative; border-left:4px solid var(--accent); background:linear-gradient(180deg, rgba(78,168,230,.06), rgba(78,168,230,.01)); border-radius:0 var(--radius-sm) var(--radius-sm) 0; padding:20px 26px; margin:24px 0; box-shadow:var(--shadow); }
+  .pitch-quote p{ font-family:var(--font-head); font-style:italic; font-size:1.14rem; line-height:1.7; color:#efe9dc; max-width:none; }
+  .pitch-quote p + p{ margin-top:14px; }
 
   section{ scroll-margin-top:30px; padding-top:24px; }
   h2{ font-family:var(--font-head); font-weight:600; font-size:clamp(1.6rem,3vw,2.15rem); line-height:1.15; margin:48px 0 6px; padding-bottom:14px; border-bottom:1px solid var(--border); display:flex; align-items:baseline; gap:14px; }
@@ -164,7 +171,7 @@
   <label class="burger" for="nav-toggle" aria-label="Ouvrir le menu">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18" stroke-linecap="round"/></svg>
   </label>
-  <span class="topbar-title">Le Lagon Bleu</span>
+  <span class="topbar-title">Fausse Note</span>
 </div>
 
 <div class="layout">
@@ -174,16 +181,17 @@
     <a class="brand-link" href="../../" aria-label="Retour au recueil">
       <div class="brand">
         <span class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></span>
-        <div><div class="brand-title">Le Lagon Bleu</div><div class="brand-sub">Noir · One-shot</div></div>
+        <div><div class="brand-title">Fausse Note</div><div class="brand-sub">Noir · One-shot</div></div>
       </div>
     </a>
     <nav class="nav">
       <div class="nav-group">
-        <div class="nav-label">Introduction</div>
-        <a href="#intro"><span class="dot"></span>Le pitch &amp; la situation</a>
-        <a href="#perso" class="sub">Créer l'artiste (PJ)</a>
-        <a href="#trame" class="sub">La trame secrète</a>
+        <div class="nav-label">Le scénario</div>
+        <a href="#pitch"><span class="dot"></span>Pitch</a>
+        <a href="#intro"><span class="dot"></span>Préface</a>
         <a href="#intro-echelle" class="sub">Échelle de difficulté</a>
+        <a href="#prep"><span class="dot"></span>Préparation</a>
+        <a href="#trame"><span class="dot"></span>Contexte</a>
       </div>
       <div class="nav-group">
         <div class="nav-label">L'aventure</div>
@@ -193,69 +201,85 @@
         <a href="#acte4"><span class="dot"></span>4 — En coulisses</a>
         <a href="#acte5"><span class="dot"></span>5 — La table de Berlioz</a>
         <a href="#acte6"><span class="dot"></span>6 — Le grand bazar</a>
-        <a href="#acte7"><span class="dot"></span>7 — La sortie</a>
-        <a href="#acte8"><span class="dot"></span>8 — Épilogue</a>
+        <a href="#acte7"><span class="dot"></span>7 — Sortie et fin</a>
+        <a href="#acte8"><span class="dot"></span>8 — Épilogue ouvert</a>
       </div>
       <div class="nav-group">
         <div class="nav-label">Références</div>
         <a href="#pnj"><span class="dot"></span>Les personnages</a>
-        <a href="#annexes"><span class="dot"></span>Lieux &amp; annexes</a>
+        <a href="#annexes"><span class="dot"></span>Plan du club</a>
       </div>
     </nav>
-    <div class="sidebar-foot">Lisez à voix haute les passages <em>dorés</em>, ouvrez les blocs <strong>Secret</strong> au bon moment. Un seul joueur, une seule nuit.</div>
   </aside>
 
   <main class="content">
 
     <header class="hero">
+      <img src="cover.png" alt="Le café Bonin, la nuit, un musicien et son étui" style="display:block;width:100%;height:auto;max-height:360px;object-fit:cover;border-radius:14px;border:1px solid var(--border);box-shadow:var(--shadow);margin-bottom:28px;">
       <span class="eyebrow">Noir · Introspection · Action — One-shot</span>
-      <h1>Le Lagon Bleu</h1>
-      <p class="lead">Hier, on vous a expulsé de la scène sans même vous payer. Ce soir, une femme au béret rouge vous offre un cachet, une Audi blanche et une dernière chance. Vous ne savez pas encore que vous jouez pour le cœur d'un cartel.</p>
+      <h1>Fausse Note</h1>
+      <p class="lead">Un artiste de cabaret au bout du rouleau accepte un soir d'essai dans un club parisien de standing, aussi discret que feutré.</p>
       <div class="meta-row">
-        <span class="meta"><strong>Durée</strong> · une session (3–4 h)</span>
+        <span class="meta"><strong>Durée</strong> · 2 h à 2 h 30</span>
         <span class="meta"><strong>Groupe</strong> · 1 joueur</span>
-        <span class="meta"><strong>Système</strong> · libre / agnostique</span>
-        <span class="meta"><strong>Ton</strong> · roleplay ★★★★ · action ★</span>
+        <span class="meta ton"><strong>Ton</strong> · roleplay ★★★★ · action ★</span>
       </div>
     </header>
 
-    <!-- ============================ INTRODUCTION ============================ -->
-    <section id="intro">
-      <h2><span class="num">Partie 0</span> Le pitch &amp; la situation</h2>
-
-      <p>Le ou la PJ est un·e artiste-interprète des petits cafés de Paris. De belles reprises, des compositions originales — mais un public qui l'oublie sitôt que les projecteurs le replongent dans le noir. Endetté·e jusqu'au cou pour un album qui n'a jamais décollé, miné·e par des histoires de famille, il ou elle vient de vivre l'humiliation de trop&nbsp;: expulsé·e hier soir du <strong>café Bonin</strong>, sans paye, sans force pour engager un recours.</p>
-
-      <p>Derrière cet échec, une opportunité. Une femme élégante, béret rouge, l'a écouté·e jusqu'au bout puis ramassé·e à la petite cuillère. <strong>Ericka</strong>. Elle dit chercher «&nbsp;quelqu'un de sa trempe&nbsp;». Rendez-vous ce soir, 23h, rue Madame. Le cachet d'une soirée pourrait suffire à payer le loyer du mois. Une chance qui ne repassera pas.</p>
-
-      <div class="callout read">
-        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5Z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg></span>
-        <div class="c-title">À lire à voix haute — l'accroche</div>
-        <p>« Vous jouez depuis dix ans pour des salles qui regardent ailleurs. Hier, au café Bonin, on vous a coupé le micro avant le dernier refrain et poussé dehors sans un euro. Vous n'aviez même plus la rage de protester. Puis cette femme au béret rouge vous a glissé une adresse et une heure, comme on tend une corde à quelqu'un qui se noie. Ce soir, vous décidez de la saisir. »</p>
+    <!-- ============================ PITCH ============================ -->
+    <section id="pitch">
+      <h2>Pitch</h2>
+      <p>Texte de présentation du scénario, à transmettre tel quel au joueur pour poser le décor et son personnage.</p>
+      <div class="pitch-quote">
+        <p>Artiste dans les petits cafés de Paris des années actuelles, vos reprises sont de qualités, vos compositions sont originales, mais le public vous oublie aussitôt que les projecteurs qui vous plonge dans l'obscurité. Endetté jusqu'au cou pour un album qui n'a jamais décollé et des problèmes familiaux, vous venez de vivre votre pire humiliation au café Bonin. Hier, vous en avez été expulsé sans paye. Et vous êtes loin d'avoir assez d'énergie pour engager un recours.</p>
+        <p>Derrière cet échec, une opportunité s'est présentée à vous au travers d'une femme élégante au béret rouge qui a écouté votre représentation, Ericka, vous a ramassé à la petite cuillère. Elle prétend chercher quelqu'un de votre trempe&nbsp;: Le rendez-vous est fixé à 23h, rue Madame. La rémunération proposée pour la soirée pourrait au moins vous permettre de payer votre loyer Parisien ce mois-ci. Une chance qui ne se représentera sûrement pas.</p>
       </div>
+    </section>
+
+    <!-- ============================ SITUATION & MJ ============================ -->
+    <section id="intro">
+      <h2>Préface</h2>
+
+      <p>Le PJ est un artiste-interprète des petits cafés de Paris. De belles reprises, des compositions originales — mais un public qui l'oublie sitôt que les projecteurs le replongent dans le noir. Endetté jusqu'au cou pour un album qui n'a jamais décollé, miné par des histoires de famille, il vient de vivre l'humiliation de trop&nbsp;: expulsé hier soir du <strong>café Bonin</strong>, sans paye, sans force pour engager un recours.</p>
+
+      <p>Derrière cet échec, une opportunité. Une femme élégante, béret rouge, l'a écouté jusqu'au bout puis ramassé à la petite cuillère. <strong>Ericka</strong>. Elle dit chercher «&nbsp;quelqu'un de sa trempe&nbsp;». Le cachet d'une soirée pourrait suffire à payer le loyer du mois. Une chance qui ne repassera pas.</p>
 
       <h3>Note d'intention pour le MJ</h3>
       <div class="callout gm">
         <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span>
         <div class="c-title">Info MJ — le ton avant tout</div>
-        <p>C'est un <strong>thriller noir intimiste pour un seul joueur</strong>. Les trois quarts de la soirée sont de la conversation, de l'observation et du malaise qui monte&nbsp;: prenez votre temps, laissez les silences respirer, posez beaucoup de questions sur le personnage. La violence n'arrive qu'à l'acte 5 et doit faire l'effet d'un coup de tonnerre, pas d'un climax attendu. Théâtre de l'esprit&nbsp;: décrivez la lumière, la fumée, le velours, l'argent. Le joueur doit comprendre <em>où il a mis les pieds</em> bien avant d'avoir un moyen d'en sortir.</p>
+        <p>C'est un <strong>thriller noir intimiste pour un seul joueur</strong>. Les trois quarts de la soirée sont de la conversation, de l'observation et du malaise qui monte&nbsp;: prenez votre temps, laissez les silences respirer, posez beaucoup de questions sur le personnage, et <strong>servez-vous-en à outrance</strong> pour rebondir et rendre le jeu vivant&nbsp;: les PNJ sont réellement intéressés par le PJ. La violence n'arrive qu'à l'acte 5 et doit faire l'effet d'un coup de tonnerre, pas d'un climax attendu. Théâtre de l'esprit&nbsp;: décrivez la lumière, la fumée, le velours, l'argent. Le joueur doit comprendre <em>où il a mis les pieds</em> bien avant d'avoir un moyen d'en sortir.</p>
       </div>
 
-      <div id="perso"></div>
-      <h3>Créer l'artiste — à préparer avec le joueur</h3>
-      <p>Avant la partie (ou en ouverture), construisez le personnage ensemble. Il vous faut&nbsp;:</p>
+      <div id="intro-echelle"></div>
+      <h3>Échelle de difficulté</h3>
+      <p>Système agnostique. Ce scénario, très tourné vers le dialogue et l'observation, ne demande que de <strong>rares jets</strong> — réservez-les aux vrais moments de bascule ou d'action.</p>
+      <div class="scale">
+        <span class="epreuve facile"><span class="gauge"><i></i><i></i><i></i></span>Facile</span>
+        <span class="epreuve modere"><span class="gauge"><i></i><i></i><i></i></span>Modéré</span>
+        <span class="epreuve difficile"><span class="gauge"><i></i><i></i><i></i></span>Difficile</span>
+        <span class="epreuve tres-difficile"><span class="gauge"><i></i><i></i><i></i></span>Très difficile</span>
+      </div>
+    </section>
+
+    <!-- ============================ PRÉPARATION ============================ -->
+    <section id="prep">
+      <h2>Préparation</h2>
+      <p>Avant la partie (ou en ouverture), construisez le personnage ensemble. Vous avez besoin de trois choses&nbsp;:</p>
       <ul>
         <li>Un <strong>nom et un prénom</strong>.</li>
-        <li>Le <strong>genre de musique</strong> proposé, et l'instrument s'il y en a un — chanson, jazz, folk, piano-voix, slam… Un lien vers une musique « signature » est un plus pour l'ambiance.</li>
-        <li>Une <strong>personnalité, une façon d'être en scène et hors scène</strong> — c'est elle qui portera tout le roleplay.</li>
+        <li>Le <strong>genre de musique</strong> proposé, et l'instrument s'il y en a un — chanson, jazz, folk, piano-voix, slam… Un lien vers une musique « signature » ou un exemple est un vrai plus pour l'ambiance, mais reste facultatif.</li>
+        <li>Une idée de la <strong>personnalité et du comportement</strong> du personnage, en scène comme hors scène — c'est ce qui portera tout le roleplay.</li>
       </ul>
-      <p>Les cinq questions de la scène 1 (voiture) servent justement à étoffer ce portrait <em>en jeu</em>&nbsp;: ne les bâclez pas, ce sont elles qui rendront la chute personnelle.</p>
+    </section>
 
-      <div id="trame"></div>
-      <h3>La trame secrète — pour vos yeux seuls</h3>
+    <!-- ============================ TRAME SECRÈTE ============================ -->
+    <section id="trame">
+      <h2>Contexte</h2>
       <div class="callout warn">
         <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/></svg></span>
         <div class="c-title">Spoilers — ne pas montrer au joueur</div>
-        <p>Le Lagon Bleu est le cœur logistique du <strong>cartel de l'Hydre</strong>. Deux secrets gouvernent toute la soirée&nbsp;: celui d'Ericka et celui de la famille du PJ.</p>
+        <p>Le Lagon Bleu est le cœur logistique du <strong>cartel de l'Hydre</strong>. Le grand secret de la soirée tient en une personne&nbsp;: la véritable identité d'Ericka.</p>
       </div>
 
       <details class="secret">
@@ -265,32 +289,11 @@
           <span class="tag">Secret</span>
         </summary>
         <div class="details-body">
-          <p>L'Hydre a été « décapitée » plusieurs fois&nbsp;: ses chefs successifs (le dernier en date, <strong>Carlos Mangini</strong>, puis <strong>Berlioz</strong>) ne sont que des <strong>visages</strong>. La véritable tête — le <em>cœur</em> du cartel — est une femme qui change d'identité comme de couleur de cheveux. Aujourd'hui elle s'appelle <strong>Ericka Dufrêne</strong>. Berlioz n'est que le N°2, la façade publique&nbsp;; il l'ignore peut-être lui-même à demi.</p>
-          <p>C'est exactement ce que le flic infiltré <strong>Marc</strong> a découvert et gravé sur sa carte SD&nbsp;: «&nbsp;Ce n'est pas la tête de l'Hydre qu'il fallait couper, mais le cœur qu'il faut transpercer.&nbsp;»</p>
+          <p>L'Hydre a été « décapitée » plusieurs fois par la police&nbsp;: ses chefs successifs (le dernier en date, <strong>Carlos Mangini</strong>, puis <strong>Berlioz</strong>) ne sont que des <strong>visages</strong>. La véritable tête — le <em>cœur</em> du cartel — est une femme qui change d'identité comme de couleur de cheveux. Aujourd'hui elle s'appelle <strong>Ericka Dufrêne</strong>. Berlioz n'est que le N°2, la façade publique du cartel&nbsp;: lui le sait parfaitement, et il est même le <strong>seul, dans toute la maison, à connaître la vérité sur Ericka</strong>.</p>
+          <p>C'est exactement ce que le flic infiltré <strong>Marc</strong> a découvert et enregistré sur sa clé USB&nbsp;: «&nbsp;Ce n'est pas la tête de l'Hydre qu'il fallait couper, mais le cœur qu'il faut transpercer.&nbsp;»</p>
         </div>
       </details>
 
-      <details class="secret">
-        <summary>
-          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="m9 6 6 6-6 6"/></svg>
-          La famille du PJ est déjà dans la pièce
-          <span class="tag">Secret</span>
-        </summary>
-        <div class="details-body">
-          <p><strong>Berlioz (Jack)</strong>, le patron du Lagon, est <strong>l'oncle du PJ</strong>. Les <strong>danseuses jumelles</strong> (dont <strong>Opale</strong>) sont ses <strong>cousines</strong>. Ericka, qui dit «&nbsp;chercher quelqu'un de sa trempe&nbsp;», l'a en réalité recruté <em>parce qu'il est de la famille</em> — un levier de plus sur Berlioz, et une caution propre pour la salle.</p>
-          <p>Dosez les révélations&nbsp;: laissez le joueur recoller les morceaux. La nuit où il croit décrocher enfin un contrat est aussi celle où sa propre famille l'aspire dans le crime.</p>
-        </div>
-      </details>
-
-      <div id="intro-echelle"></div>
-      <h3>Échelle de difficulté</h3>
-      <p>Système agnostique&nbsp;: annoncez le niveau d'une action incertaine avec un mot, puis traduisez-le dans le système de votre table (ici, DECimation et ses D10).</p>
-      <div class="scale">
-        <span class="epreuve facile"><span class="gauge"><i></i><i></i><i></i></span>Facile</span>
-        <span class="epreuve modere"><span class="gauge"><i></i><i></i><i></i></span>Modéré</span>
-        <span class="epreuve difficile"><span class="gauge"><i></i><i></i><i></i></span>Difficile</span>
-        <span class="epreuve tres-difficile"><span class="gauge"><i></i><i></i><i></i></span>Très difficile</span>
-      </div>
     </section>
 
     <!-- ============================ ACTE 1 ============================ -->
@@ -310,61 +313,81 @@
         <p>« 21h20. Une Audi blanche se range à hauteur de l'adresse — ç'aurait pu être un Uber. La portière s'ouvre, côté conducteur&nbsp;: Ericka. Le béret rouge a cédé la place à une tenue de soirée de très bonne facture. Boucles d'oreilles serties de petits saphirs, robe bleu marine décolletée, rouge à lèvres foncé. "Monte. On a un peu de route." »</p>
       </div>
 
-      <h3>L'entretien d'Ericka — cinq questions</h3>
-      <p>Pendant le trajet, Ericka conduit et interroge, mine de rien. Posez-les vraiment, écoutez les réponses, rebondissez. Chaque réponse est une corde que la nuit pourra tirer plus tard.</p>
+      <h3>Sur le trajet — l'entretien d'Ericka</h3>
+      <p>En apparence, un entretien d'embauche mené au volant. En réalité, Ericka <strong>cherche à se rapprocher</strong>&nbsp;: le PJ l'a touchée sur scène, elle le trouve talentueux et, oui, il ou elle l'attire. Sous chaque question affleure une tentative de séduction sincère. Posez-les pour de vrai, écoutez, rebondissez&nbsp;: chaque réponse nourrit autant le portrait du personnage que le jeu de charme entre eux — et tend des cordes que la nuit pourra tirer plus tard.</p>
+      <p><em>Quelques pistes — à adapter, couper ou remplacer par les vôtres. Surtout, <strong>rebondissez sur ce que dit le joueur</strong> plutôt que de dérouler la liste&nbsp;: relancez sur ses réponses, creusez ce qui l'émeut, laissez la conversation dériver où il l'emmène.</em></p>
       <ul>
         <li><strong>Q1 — La musique.</strong> «&nbsp;D'où ça te vient&nbsp;? Qu'est-ce que ça t'inspire&nbsp;?&nbsp;»</li>
-        <li><strong>Q2 — La famille.</strong> «&nbsp;Et ta famille, elle en pense quoi&nbsp;?&nbsp;» <em>(Elle sait déjà. Notez tout.)</em></li>
-        <li><strong>Q3 — Le cercle proche.</strong> «&nbsp;La vie d'artiste, c'est souvent solitaire, non&nbsp;? Il y a quelqu'un qui partage ta vie&nbsp;?&nbsp;»</li>
+        <li><strong>Q2 — La famille.</strong> «&nbsp;Et ta famille, elle en pense quoi, de tout ça&nbsp;?&nbsp;»</li>
+        <li><strong>Q3 — Le cercle proche.</strong> «&nbsp;La vie d'artiste, c'est souvent solitaire, non&nbsp;? Il y a quelqu'un qui partage ta vie&nbsp;?&nbsp;» <em>(la vraie question, sous la question)</em></li>
         <li><strong>Q4 — L'imprévu.</strong> «&nbsp;Et quand ça dérape, sur scène, dans la vie — tu fais quoi&nbsp;?&nbsp;»</li>
         <li><strong>Q5 — Les rêves.</strong> «&nbsp;Si tout marchait, ce soir, demain — tu veux quoi, au fond&nbsp;?&nbsp;»</li>
       </ul>
 
       <div class="callout gm">
         <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span>
+        <div class="c-title">Info MJ — jouer l'intérêt d'Ericka (une proposition)</div>
+        <p><strong>Rien d'imposé ici</strong>&nbsp;: cette piste de séduction est une matière à jouer, pas une obligation — saisissez-la, dosez-la ou laissez-la de côté selon votre table et le joueur. Si vous la jouez, faites <strong>sentir</strong> l'intérêt d'Ericka plutôt que de l'annoncer&nbsp;: un regard qui s'attarde, un sourire en coin, le buste qui se tourne vers le PJ, le tutoiement complice, une main qui frôle, des compliments <strong>sincères sur le talent</strong> (jamais creux), un silence qui invite à se confier. Cela fonctionne quel que soit le genre du PJ. Montez par petites touches, lisez les réactions du joueur, et <strong>laissez le PJ libre</strong> d'y répondre, d'esquiver ou de feindre l'aveugle&nbsp;: c'est cette ambiguïté qui rend la scène vivante — et qui donnera plus tard une double lecture à l'attitude d'Ericka. Au besoin, assurez-vous d'un mot, hors-jeu, que le joueur est à l'aise avec ce registre.</p>
+      </div>
+
+      <div class="callout gm">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span>
         <div class="c-title">Info MJ — ce qu'elle distille</div>
-        <p>Au fil du trajet, Ericka lâche&nbsp;: «&nbsp;Mon patron s'appelle <strong>Berlioz</strong>. Un passionné de musique, un vrai. Si tu lui plais, c'est deux soirs par semaine.&nbsp;» Elle parle de Berlioz comme du chef&nbsp;; <em>elle</em> est la vraie tête (voir la trame secrète). Lire la femme&nbsp;: percevoir qu'elle ment ou qu'elle pèse chaque mot — <span class="epreuve difficile"><span class="gauge"><i></i><i></i><i></i></span>Difficile</span>. Si le PJ cherche à comprendre <em>pourquoi lui</em> — <span class="epreuve tres-difficile"><span class="gauge"><i></i><i></i><i></i></span>Très difficile</span>&nbsp;: elle élude avec un sourire.</p>
+        <p>En se confiant un peu — le rapprochement aide — Ericka <strong>laisse filer trois choses</strong>, à semer au gré de la conversation&nbsp;:</p>
+        <ul>
+          <li>Son <strong>patron s'appelle Berlioz</strong>, un passionné de musique, un vrai&nbsp;: «&nbsp;Je suis sûre que tu lui plairas.&nbsp;»</li>
+          <li>Elle a un <strong>fils, Daniel</strong> — un enfant que le PJ croisera plus tard au club.</li>
+          <li>Que <strong>ça s'est très mal terminé avec son ex-mari</strong>, sans s'étendre. <em>(C'est Jul, mais elle ne le nomme pas.)</em></li>
+        </ul>
       </div>
 
       <h3>Les règles de la maison</h3>
-      <p>Avant d'arriver, Ericka pose le cadre du Lagon Bleu — un lieu «&nbsp;de tenue et de prestige&nbsp;». À énoncer fermement&nbsp;:</p>
+      <p>Avant d'arriver, Ericka pose le cadre du Lagon Bleu — un lieu «&nbsp;de tenue et de standing&nbsp;», discret par nature. À glisser sans casser l'ambiance du trajet, mais sans laisser d'ambiguïté&nbsp;:</p>
       <div class="callout read">
         <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5Z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg></span>
         <div class="c-title">À lire à voix haute — les règles</div>
-        <p>« Trois choses, et tu les retiens. Un&nbsp;: on est bien habillé, toujours. Deux&nbsp;: on n'aborde personne sans y avoir été invité, on ne traîne pas dans les couloirs, tu restes dans l'espace artiste, tu joues, tu salues, et tu retournes en loge jusqu'à ce qu'on vienne te chercher. Trois&nbsp;: pas de téléphone. Tu me le donnes maintenant. »</p>
+        <p>« Deux-trois petites choses sur la maison, avant qu'on y soit. Ici, on est bien habillé — mais ça, je n'ai pas eu besoin de te le dire. On n'aborde personne sans y avoir été invité, on ne traîne pas dans les couloirs sans y avoir été invité&nbsp;: tu restes dans l'espace artiste, tu joues, tu salues, et tu retournes en loge jusqu'à ce qu'on vienne te chercher. Ah — et pas de téléphone&nbsp;: tu me le confies&nbsp;? Je te le rends à la fin, promis. »</p>
       </div>
-      <div class="callout warn">
-        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/></svg></span>
-        <div class="c-title">Danger — le téléphone</div>
-        <p>Le rendre coupe le PJ du monde extérieur (et de tout appel à l'aide). <strong>Le garder en douce</strong> est tentant&nbsp;: <span class="epreuve difficile"><span class="gauge"><i></i><i></i><i></i></span>Difficile</span> — Ericka est attentive. S'il est gardé, c'est un atout précieux à l'acte 6/7… mais s'il sonne au mauvais moment, c'est une condamnation.</p>
+      <div class="callout gm">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span>
+        <div class="c-title">Info MJ — le téléphone</div>
+        <p>Le rendre coupe le PJ du monde extérieur (et de tout appel à l'aide). <strong>Le garder en douce</strong> est tentant, mais il y a peu de chances que ça passe&nbsp;: <span class="epreuve tres-difficile"><span class="gauge"><i></i><i></i><i></i></span>Très difficile</span> — Ericka est attentive. <strong>En cas d'échec</strong>, elle le relève aussitôt, sur le ton de la remontrance («&nbsp;On avait dit pas de téléphone.&nbsp;»). <strong>En cas de réussite</strong>, le PJ garde un lien avec l'extérieur… mais l'avoir caché est un élément qui <strong>pèsera contre lui à la fin du scénario</strong>. Dans tous les cas, c'est une mauvaise idée.</p>
       </div>
     </section>
 
     <!-- ============================ ACTE 2 ============================ -->
     <section id="acte2">
       <h2><span class="num">Scène 2</span> Avant la représentation</h2>
-      <p>Ericka dépose le PJ dans <strong>l'espace artiste</strong> (loges) et disparaît «&nbsp;régler deux-trois choses&nbsp;». Le PJ a un moment pour respirer, accorder son instrument, observer — et faire deux rencontres.</p>
+      <p>Ericka dépose le PJ dans <strong>l'espace artiste</strong> (loges) et s'éclipse — juste le temps d'aller garer la voiture. Le PJ a un moment pour respirer, accorder son instrument, observer — et faire deux rencontres.</p>
 
       <div class="callout read">
         <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5Z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg></span>
         <div class="c-title">À lire à voix haute</div>
-        <p>« La loge sent la laque, le velours et le cuivre chaud. Un miroir cerclé d'ampoules, des costumes sur cintres, le grondement étouffé d'une salle pleine derrière la cloison. Pour la première fois depuis longtemps, on vous traite comme quelqu'un qu'on attend. »</p>
+        <p>« La loge sent la laque, le velours et le cuivre chaud. Un miroir cerclé d'ampoules, des costumes sur cintres, le grondement étouffé d'une salle pleine au loin. Quelques personnes sont là et attendent leur tour ou rangent leurs affaires. Et vous faites partie de ces personnes maintenant. »</p>
       </div>
 
       <h4>Opale, la danseuse</h4>
-      <p><strong>Opale</strong> (l'une des jumelles) vient se changer, chaleureuse et bavarde. Elle se présente comme «&nbsp;de la maison&nbsp;», parle de sa sœur, de la danse, de la chance d'être payées pour leur passion.</p>
+      <p><strong>Opale</strong> est déjà là, en train de se changer. Elle a <strong>répondu à une annonce</strong> — elle n'est pas «&nbsp;de la maison&nbsp;». Ce soir, elle doit danser sur la musique du PJ&nbsp;: elle vient le trouver pour le <strong>rassurer</strong>, promet d'improviser avec lui, le met à l'aise. Sa place est juste à côté de la sienne&nbsp;; un emplacement d'artiste libre l'attend auprès d'elle.</p>
       <div class="callout gm">
         <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span>
-        <div class="c-title">Info MJ — le lien familial</div>
-        <p>Opale est <strong>cousine du PJ</strong> (ou ex-belle-sœur, selon le portrait construit à la scène 1). Elle est proche d'Ericka. Faites affleurer la connexion sans la nommer&nbsp;: un détail de famille, un prénom, une chanson que «&nbsp;quelqu'un&nbsp;» fredonnait. Reconnaître le lien — <span class="epreuve modere"><span class="gauge"><i></i><i></i><i></i></span>Modéré</span>. Les jumelles <strong>ne savent pas</strong> dans quoi elles trempent&nbsp;; elles sont l'innocence de l'histoire.</p>
+        <div class="c-title">Info MJ — jouer Opale</div>
+        <p>À <strong>improviser en rebondissant</strong> avec le PJ&nbsp;; c'est court. Le but n'est pas de transmettre des informations mais de créer de l'<strong>attachement</strong>&nbsp;: rendez Opale vivante, complice, attachante, donnez-lui de la valeur aux yeux du personnage.</p>
+        <p>Opale est une <strong>cousine du PJ</strong> — pur hasard&nbsp;; ni l'un ni l'autre ne s'y attendait, et Ericka elle-même l'ignore (elle a recruté le PJ pour son seul talent). Jouez ça comme des <strong>retrouvailles</strong>&nbsp;: ils ne se sont peut-être pas vus depuis longtemps&nbsp;: la surprise, la joie, la tendresse de se retrouver là, par le plus grand des hasards.</p>
       </div>
 
       <h4>Daniel, l'enfant</h4>
-      <p>Un garçon d'une dizaine d'années, jean simple, regard trop calme pour son âge, aide le PJ à s'orienter et annonce les artistes. C'est <strong>Daniel</strong>. Il est poli, attentionné, presque protecteur.</p>
+      <p><strong>Daniel</strong>, un garçon d'une dizaine d'années en jean simple, vient simplement se présenter — c'est lui qui appellera les artistes en scène. Bienveillant, poli, le regard un peu trop calme pour son âge.</p>
       <div class="callout gm">
         <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span>
         <div class="c-title">Info MJ — qui est Daniel</div>
         <p>Daniel est le <strong>fils d'Ericka et de Jul</strong> — l'enjeu vivant de la guerre qui va éclater. Son but, à sa manière d'enfant&nbsp;: «&nbsp;aider les gens clean à le rester&nbsp;». Il jaugera vite le PJ comme quelqu'un qui n'est pas (encore) sale. Gardez-le mystérieux et doux&nbsp;; il reviendra à plusieurs moments-clés.</p>
+      </div>
+
+      <h4>Les autres artistes — et le test</h4>
+      <div class="callout gm">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span>
+        <div class="c-title">Info MJ — une soirée-test</div>
+        <p>La représentation est aussi une <strong>mise à l'épreuve</strong>&nbsp;: on veut voir comment le PJ réagit. Donc <strong>personne ne le prévient</strong> que la maison baigne dans la drogue — il doit le découvrir seul, sur scène (scène 3). Les autres artistes — cinq ou six, de toute nature qu'on croise dans un cabaret (chant, magie, contorsion… à improviser, sans importance) — restent <strong>évasifs</strong>&nbsp;: s'il tente d'engager la conversation, ils éludent et s'esquivent. Parler, maintenant, est un risque qu'aucun d'eux n'est prêt à prendre.</p>
       </div>
     </section>
 
@@ -376,50 +399,40 @@
       <div class="callout read">
         <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5Z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg></span>
         <div class="c-title">À lire à voix haute — pendant le concert</div>
-        <p>« Vous reconnaissez vite l'ambiance dont Ericka parlait. Des costumes plus fringants les uns que les autres, des murmures discrets qui circulent, des regards à peine intéressés vers les danseuses, une oreille à peine tendue vers votre musique. Au fond, les lettres de "Lagon Bleu" scintillent d'une lueur bleue électrique. La lumière est tamisée — mais vous voyez. Face à vous, des pochons de poudre blanche passent de main en main&nbsp;: de la cocaïne. Des mallettes. De l'argent. Beaucoup d'argent. Quelqu'un, dans un coin, le compte. Tout ce monde est dedans — et maintenant, vous le savez aussi. Ce n'est pas un club de bonnes gens&nbsp;: c'est un point névralgique de deals à grande échelle. Plus haut, sur une mezzanine qui vous surplombe, une table&nbsp;: un homme un peu rond, sûrement le patron, Berlioz, discute avec un autre, grand, bien mis, lunettes discrètes. Les deux ont une mallette, et se l'échangent. Puis Berlioz tend la main vers la scène — vers vous — et invite l'autre à profiter du spectacle que vous donnez. Quelle est votre réaction&nbsp;? »</p>
+        <p>« Vous reconnaissez vite l'ambiance dont Ericka parlait. Des costumes plus fringants les uns que les autres, des murmures discrets qui circulent, des regards à peine intéressés vers la danseuse, une oreille à peine tendue à votre musique. Au fond, les lettres de "Lagon Bleu" scintillent d'une lueur bleue électrique. La lumière est tamisée — mais vous voyez. Face à vous, des pochons de poudre blanche passent de main en main&nbsp;: de la cocaïne. Des mallettes. De l'argent. Beaucoup d'argent. Quelqu'un, dans un coin, le compte. Tout ce monde est dedans — et maintenant, vous le savez aussi. Ce n'est pas un club de bonnes gens&nbsp;: c'est un point névralgique de deals à grande échelle. Plus haut, sur une mezzanine qui vous surplombe, une table&nbsp;: un homme un peu rond, sûrement le patron, Berlioz, discute avec un autre, grand, bien mis, lunettes discrètes. Les deux ont une mallette, et se l'échangent. Puis Berlioz tend la main vers la scène — vers vous — et invite l'autre à profiter du spectacle que vous donnez. Quelle est votre réaction&nbsp;? »</p>
       </div>
 
       <div class="callout gm">
         <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span>
         <div class="c-title">Info MJ — jouer en sachant</div>
-        <p>Le cœur de la scène&nbsp;: le PJ doit <strong>continuer à jouer</strong> alors qu'il comprend tout. Garder contenance et finir le set sans trembler — <span class="epreuve modere"><span class="gauge"><i></i><i></i><i></i></span>Modéré</span>. S'il s'arrête, fuit des yeux, ou improvise un message dans une chanson, c'est du grand roleplay&nbsp;: récompensez l'audace, mais rappelez que des regards se posent désormais sur lui. L'homme aux lunettes discrètes, c'est <strong>Marc</strong> (flic infiltré, couverture en train de se fissurer).</p>
+        <p>Le cœur de la scène&nbsp;: le PJ doit <strong>continuer à jouer</strong> alors qu'il comprend tout. Garder contenance et finir le set sans trembler — <span class="epreuve modere"><span class="gauge"><i></i><i></i><i></i></span>Modéré</span>. S'il s'arrête, fuit des yeux, ou improvise un message dans une chanson, c'est du grand roleplay&nbsp;: récompensez l'audace, mais rappelez que des regards se posent désormais sur lui.</p>
       </div>
 
       <h4>Entre deux morceaux — une danseuse</h4>
-      <p>Un numéro de danse s'enchaîne avec la musique&nbsp;; Opale ou sa jumelle croise le regard du PJ, un sourire complice qui dit «&nbsp;tiens bon&nbsp;». Daniel, en coulisses, est <strong>rassurant</strong>&nbsp;: «&nbsp;Tu joues bien. Reste sur scène, c'est l'endroit le plus sûr ici.&nbsp;»</p>
+      <p>Un numéro de danse s'enchaîne avec la musique&nbsp;; Opale croise le regard du PJ, un sourire complice qui dit «&nbsp;tiens bon&nbsp;». Et s'il croise leur regard, <strong>Daniel et Ericka</strong> lui adressent des signes d'encouragement.</p>
 
-      <h4>Marc glisse la carte SD</h4>
-      <div class="callout warn">
-        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/></svg></span>
-        <div class="c-title">Danger — le passage de relais</div>
-        <p>À la fin du set, en saluant ou en regagnant la loge, l'homme aux lunettes — <strong>Marc</strong> — frôle le PJ et lui glisse dans la main une <strong>carte SD</strong>, en murmurant&nbsp;: «&nbsp;Garde ça. Ne la donne à personne d'ici. Si je disparais, tu sauras quoi en faire.&nbsp;» Quelques minutes plus tard, deux hommes l'encadrent et l'emmènent vers les bureaux. <strong>On n'entendra plus jamais parler de Marc.</strong></p>
-      </div>
-      <p>Le PJ peut tenter de cacher la carte sur lui — <span class="epreuve facile"><span class="gauge"><i></i><i></i><i></i></span>Facile</span> — ou de comprendre qui est Marc et ce qu'il fuit — <span class="epreuve difficile"><span class="gauge"><i></i><i></i><i></i></span>Difficile</span>.</p>
-
-      <h4>Jul fait son entrée</h4>
-      <p><strong>Plus tard, un homme tatoué entre&nbsp;: Jul.</strong> Maigre, mal habillé, casquette, lunettes de soleil en intérieur — il fait tache dans ce décor de velours. Il s'installe à une table à l'écart, fixe la mezzanine, et attend. La tension de la salle monte d'un cran sans que personne ne dise rien.</p>
+      <h4>Interception de Marc</h4>
+      <p>Pendant la représentation, le cartel démasque <strong>Marc</strong> — la taupe. Un homme correctement habillé l'entraîne fermement vers les loges d'artiste&nbsp;; Marc se débat un peu sur le côté et, d'un geste habile, laisse <strong>tomber une clé USB dans les plis du rideau de scène</strong>, à portée du PJ. À lui de la ramasser… ou pas. Marc, lui, sera exécuté ailleurs&nbsp;: on ne le retrouvera jamais.</p>
+      <p>Le PJ fait ce qu'il veut de la clé. La <strong>récupérer ne demande aucun jet</strong> en soi — sauf s'il tient à le faire <strong>discrètement</strong>&nbsp;: <span class="epreuve facile"><span class="gauge"><i></i><i></i><i></i></span>Facile</span>. Et si le joueur est inventif — détourner l'attention de Daniel, par exemple — pas de jet du tout.</p>
     </section>
 
     <!-- ============================ ACTE 4 ============================ -->
     <section id="acte4">
       <h2><span class="num">Scène 4</span> En coulisses</h2>
-      <p>Set terminé, le PJ regagne la loge. <strong>Libre de ses mouvements à l'intérieur de l'espace artiste — mais impossible de sortir&nbsp;:</strong> des gardes tiennent les couloirs. C'est un temps suspendu, fait pour explorer la carte SD et laisser le malaise infuser.</p>
+      <p>Set terminé, le PJ regagne la loge. <strong>Libre de ses mouvements dans l'espace artiste — mais impossible de sortir&nbsp;:</strong> un garde tient la porte d'entrée et l'empêchera de passer (et il est bien plus fort que lui). Ce temps suspendu est laissé au PJ pour tenter de déchiffrer la clé USB et, s'il le souhaite, débriefer avec Opale.</p>
 
-      <div class="callout warn">
-        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/></svg></span>
-        <div class="c-title">Danger — une cage dorée</div>
-        <p>Forcer un couloir ou une porte gardée — <span class="epreuve tres-difficile"><span class="gauge"><i></i><i></i><i></i></span>Très difficile</span>, et c'est griller toute discrétion. Le PJ est observé. Mieux vaut jouer le jeu… pour l'instant.</p>
+      <div class="callout gm">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span>
+        <div class="c-title">Info MJ — laissez jouer</div>
+        <p>Ne bridez pas&nbsp;: rebondissez sur ses initiatives. <strong>Opale est effrayée</strong> — le PJ peut choisir de la rassurer ou non, comme il l'entend&nbsp;; il a libre cours à son imagination. Pour lire la clé, <strong>encouragez les bonnes idées</strong>&nbsp;: ce ne doit pas être un obstacle trop complexe. Mesurez les risques pris et la finesse de l'approche, puis <strong>modulez la difficulté en conséquence</strong> — une idée astucieuse peut faire sauter tout jet. Et s'il interroge des gens qui ne sont pas du cartel, tous — <strong>Daniel compris</strong> — se montrent rassurants&nbsp;: il ne s'est jamais rien passé de mal au Lagon Bleu.</p>
       </div>
 
-      <h4>Les danseuses viennent lui parler</h4>
-      <p>Les jumelles passent en loge, encore essoufflées. Légèreté, rires, anecdotes — un îlot de douceur. Le PJ peut tisser un vrai lien (et, le MJ le sait, c'est sa famille). C'est aussi l'occasion de placer un <strong>détail bouleversant</strong> qui resservira à l'épilogue.</p>
-
-      <h4>Lire la carte SD</h4>
-      <p>Le PJ n'a plus son téléphone, mais peut trouver de quoi lire la carte&nbsp;: un lecteur dans la régie, l'ordinateur de la loge, l'aide discrète de Daniel… La trouver et la lire sans se faire prendre — <span class="epreuve difficile"><span class="gauge"><i></i><i></i><i></i></span>Difficile</span>.</p>
+      <h4>Ce que contient la clé USB</h4>
+      <p>Le PJ peut décider de trouver un moyen de lire la clé USB&nbsp;: un ordinateur en régie, le portable d'une loge, un coup de main discret…</p>
       <details class="secret">
         <summary>
           <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="m9 6 6 6-6 6"/></svg>
-          Contenu de la carte SD — à révéler si le PJ parvient à la lire
+          Contenu de la clé USB — à révéler si le PJ parvient à la lire
           <span class="tag">Secret</span>
         </summary>
         <div class="details-body">
@@ -428,16 +441,7 @@
         </div>
       </details>
 
-      <h4>Daniel rôde</h4>
-      <p>L'enfant repasse, calme, presque triste&nbsp;: «&nbsp;Tu as compris, hein. Reste clean. Si ça pète, baisse-toi et ne ramasse rien.&nbsp;» Une mise en garde d'oracle dans une bouche de gamin.</p>
-
-      <div class="callout warn">
-        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/></svg></span>
-        <div class="c-title">Danger — la carte de Marc est récupérée</div>
-        <p>Pendant ce temps, les hommes du cartel ont fouillé Marc et cherchent <strong>sa</strong> carte (ils ignorent qu'il l'a refilée). S'ils remontent jusqu'au PJ, ou s'il a été vu la dissimuler, la pression devient mortelle. Tenez ce compte à rebours en tête&nbsp;: c'est ce qui justifie l'urgence d'aller voir Berlioz — et l'explosion à venir.</p>
-      </div>
-
-      <p>Puis <strong>Ericka vient le chercher</strong>&nbsp;: «&nbsp;Le patron veut te rencontrer. Il a aimé.&nbsp;» Elle le mène vers la mezzanine.</p>
+      <p>Quand vous — ou le PJ — êtes prêts à passer à la suite, déclenchez la scène suivante en faisant venir <strong>Ericka</strong>, qui vient le chercher&nbsp;: «&nbsp;Le patron veut te rencontrer. Il a aimé.&nbsp;» Elle le mène vers la mezzanine.</p>
     </section>
 
     <!-- ============================ ACTE 5 ============================ -->
@@ -445,28 +449,23 @@
       <h2><span class="num">Scène 5</span> La table de Berlioz</h2>
       <p>Le pivot de la soirée. Ce qui commence en entrevue feutrée bascule en exécution, puis en guerre ouverte. Jouez la première moitié <strong>lente et chaleureuse</strong> pour rendre la rupture brutale.</p>
 
+      <p>Ericka mène le PJ à la table de Berlioz par le <strong>couloir intérieur</strong> — différent de celui emprunté pour gagner la scène. En chemin, elle n'hésite pas à s'arrêter, à prolonger la conversation si le PJ lui parle (rappel&nbsp;: elle est attirée).</p>
+
       <h4>L'entrevue</h4>
       <p>Ericka demande au PJ comment il se sent, <strong>s'excuse de ne pas lui avoir dit plus tôt</strong> «&nbsp;dans quoi il mettait les pieds&nbsp;», puis glisse, l'air de rien&nbsp;: «&nbsp;Au fait. L'homme aux lunettes, tout à l'heure — il t'a parlé&nbsp;? Donné quelque chose&nbsp;?&nbsp;»</p>
       <div class="callout gm">
         <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span>
         <div class="c-title">Info MJ — la question piège</div>
-        <p>Mentir à Ericka sur Marc et la carte — <span class="epreuve difficile"><span class="gauge"><i></i><i></i><i></i></span>Difficile</span>. Réussir achète du temps&nbsp;; échouer ne déclenche pas la violence tout de suite, mais Ericka <strong>sait</strong>, et le PJ devient une affaire à régler après Jul. Laissez planer le doute.</p>
+        <p>Mentir à Ericka joue un <strong>point de plus en défaveur du PJ</strong> (cela pèsera à la fin). Jaugez si le mensonge est recevable et modulez la difficulté selon le mensonge et le contexte&nbsp;; à défaut, comptez <span class="epreuve modere"><span class="gauge"><i></i><i></i><i></i></span>Modéré</span>.</p>
       </div>
-      <p>Berlioz, lui, est <strong>serein, généreux, sincèrement épris de musique</strong>. Il parle du set du PJ avec une vraie tendresse, évoque Hector Berlioz, propose le contrat. Et — selon ce que le joueur a établi — laisse filtrer qu'il <strong>connaît la famille</strong> du PJ.</p>
 
-      <details class="secret">
-        <summary>
-          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="m9 6 6 6-6 6"/></svg>
-          Berlioz est l'oncle du PJ — à doser selon la table
-          <span class="tag">Secret</span>
-        </summary>
-        <div class="details-body">
-          <p>Si le moment s'y prête, Berlioz le révèle lui-même, ému&nbsp;: «&nbsp;Tu ne me reconnais pas&nbsp;? C'est normal, tu étais haut comme trois pommes. Ta mère et moi… enfin. Le sang, ça ne ment pas&nbsp;: tu joues comme nous. Bienvenue à la maison.&nbsp;» Pour le PJ, comprendre que sa famille <em>est</em> le cartel est un coup au cœur — et un piège affectif qui pèsera sur l'épilogue.</p>
-        </div>
-      </details>
+      <h4>Berlioz</h4>
+      <p>Ericka l'emmène sur la <strong>mezzanine</strong>, où Berlioz les attend à sa table. Berlioz, lui, est <strong>expansif, généreux, sincèrement passionné par la musique</strong>. Il parle du set du PJ avec une vraie ferveur et l'invite à s'asseoir. Chaque mot du PJ est presque exagéré par le bonhomme&nbsp;: prenez chacune de ses paroles comme une occasion, pour Berlioz, d'embarquer le PJ avec lui. Il n'hésite pas à évoquer le contrat&nbsp;: le PJ est pris, de toute façon, deux soirs par semaine comme convenu.</p>
+      <p>Pendant ce temps, <strong>Ericka se place près de Jul pour le surveiller</strong>&nbsp;; son visage est lisible — au plus profond d'elle, elle le hait.</p>
+      <p>Scène courte, bientôt interrompue par Jul.</p>
 
       <h4>Jul s'impatiente</h4>
-      <p>À la table, l'homme tatoué — <strong>Jul</strong>, chef du gang de l'Étoile — n'attend plus. Il veut récupérer son fils. Le ton monte. Jouez l'échange suivant tel quel, à voix haute, en alternant les voix&nbsp;:</p>
+      <p>À la table, l'homme tatoué — <strong>Jul</strong>, chef du gang de l'Étoile — n'attend plus (son tatouage figure une <strong>étoile à douze branches</strong>). Il veut récupérer son fils. À l'instant où il prend la parole, l'expansivité de Berlioz <strong>s'éteint d'un coup</strong> et un froid parcourt la table. Le ton monte. Jouez l'échange suivant tel quel, à voix haute, en alternant les voix&nbsp;:</p>
 
       <div class="callout read">
         <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5Z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg></span>
@@ -481,22 +480,23 @@
         <strong>Jul</strong>&nbsp;— «&nbsp;Ouais. Ericka. Tu changes de nom comme de couleur de tif, toi. <em>(à Berlioz)</em> Vous savez, Berlioz&nbsp;: avoir un gosse, c'est la meilleure et la pire chose qui puisse vous arriver. La meilleure, c'est le gosse. La pire, c'est que votre pute d'ex vous le kidnappe et vous… »</p>
       </div>
 
-      <div class="callout warn">
-        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/></svg></span>
-        <div class="c-title">Danger — le point de non-retour</div>
-        <p><strong>Ericka l'abat avant qu'il finisse sa phrase.</strong> Une détonation sèche dans le velours. Une seconde de silence absolu. Puis&nbsp;: <strong>le courant s'éteint</strong>. Dans le noir, des éclats de voix, des sièges renversés — le <strong>gang de l'Étoile passe à l'assaut</strong>. La guerre que Jul redoutait vient d'éclater par sa mort même. <em>⇒ GROS BAZAR.</em></p>
-      </div>
       <div class="callout gm">
         <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span>
-        <div class="c-title">Info MJ — le choix du PJ dans le noir</div>
-        <p>À l'instant du blackout, demandez au joueur ce qu'il fait, vite, à l'instinct&nbsp;: se jeter au sol (l'avis de Daniel), chercher une sortie, protéger les danseuses, suivre Ericka&nbsp;? Cette première réaction oriente toute la fuite. Pas de mauvais choix — chaque option a son prix.</p>
+        <div class="c-title">Info MJ — Jul peut tout interrompre</div>
+        <p>Vous pouvez faire <strong>interrompre la conversation par Jul à tout moment</strong>&nbsp;: si c'est le cas, improvisez les conséquences. Si le PJ tente d'intervenir pour calmer le jeu, demandez un jet <span class="epreuve modere"><span class="gauge"><i></i><i></i><i></i></span>Modéré</span>. Dans le cas — peu probable — où il désamorce si bien la scène qu'on ne peut aller jusqu'au bout (jusqu'à la mort de Jul), laissez Jul <strong>repartir</strong>&nbsp;: la suite peut tout de même avoir lieu. Passez alors à la scène suivante, et faites comprendre au PJ, par la bouche de Berlioz et d'Ericka, qu'en plus de son talent musical il a un <strong>sacré pouvoir de persuasion</strong>. <strong>En revanche, jamais Ericka ne livrera Daniel à Jul.</strong></p>
+      </div>
+
+      <div class="callout gm">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span>
+        <div class="c-title">Info MJ — le point de non-retour</div>
+        <p><strong>Ericka l'abat avant qu'il finisse sa phrase.</strong> Une détonation sèche dans le velours. Une seconde de silence absolu. Puis une <strong>explosion retentit en contrebas</strong>&nbsp;: le sol tremble, les lumières vacillent. Le <strong>gang de l'Étoile passe à l'assaut</strong> — Jul avait préparé sa guerre dès son arrivée.</p>
       </div>
     </section>
 
     <!-- ============================ ACTE 6 ============================ -->
     <section id="acte6">
       <h2><span class="num">Scène 6</span> Le grand bazar</h2>
-      <p>Fusillade dans le club plongé dans la pénombre, éclairs de bouches de feu, lumières de secours rouges qui clignotent. <strong>L'action prime, mais elle reste au service de la fiction</strong>&nbsp;: le PJ n'est pas un soldat, c'est un musicien qui veut survivre.</p>
+      <p>Fusillade dans le club. <strong>L'action prime, mais elle reste au service de la fiction</strong>&nbsp;: le PJ n'est pas un soldat, c'est un musicien qui veut survivre.</p>
 
       <div class="callout read">
         <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5Z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg></span>
@@ -504,80 +504,96 @@
         <p>« Une voix grésille sur un talkie tombé à terre&nbsp;: "Ils sont plus nombreux que prévu." Puis ça déboule dans la salle. Ça tire de partout. Le verre explose, le bar s'effondre, quelqu'un hurle. L'odeur de poudre couvre celle du parfum. Vous êtes au milieu, à découvert. »</p>
       </div>
 
-      <h4>Traverser la salle</h4>
+      <p>Laissez le PJ <strong>décider lui-même comment il veut sortir</strong>&nbsp;; ne lui imposez pas d'itinéraire. Pour nourrir sa fuite, trois éléments à faire surgir au bon moment&nbsp;:</p>
+
+      <h4>Trois éléments de fuite</h4>
       <ul>
-        <li>Ramper sous les tables jusqu'aux loges — <span class="epreuve modere"><span class="gauge"><i></i><i></i><i></i></span>Modéré</span></li>
-        <li>Couvrir une danseuse paniquée et l'extraire avec soi — <span class="epreuve difficile"><span class="gauge"><i></i><i></i><i></i></span>Difficile</span></li>
-        <li>Désarmer ou semer un assaillant en corps à corps — <span class="epreuve tres-difficile"><span class="gauge"><i></i><i></i><i></i></span>Très difficile</span></li>
+        <li><strong>Le cri d'Opale</strong> retentit dans le couloir, entre la scène et la loge artiste. S'il la laisse, c'est un <strong>poids pour l'épilogue</strong>&nbsp;; s'il va la chercher, sa fuite est ralentie — <strong>rendez alors plus difficile</strong> son jet de sortie.</li>
+        <li><strong>Berlioz tombe juste à côté du PJ.</strong> À la première occasion, abattez-le tout contre le personnage, qui n'en sera que plus choqué&nbsp;: c'est un «&nbsp;joker&nbsp;» offert au PJ — un coup encaissé par un autre — avant qu'il soit lui-même blessé. Dans son dernier souffle, Berlioz lui glisse qu'on peut <strong>fuir par le bureau, au fond du couloir intérieur</strong> (celui par lequel Ericka l'a fait passer).</li>
+        <li><strong>Daniel</strong> se trouve dans ce couloir d'où Ericka l'a amené, encore calme pour l'instant. Il a reçu un coup contondant mais n'est que très légèrement blessé. Si le PJ veut l'emmener, <strong>aucun jet</strong> n'est requis.</li>
       </ul>
 
-      <div class="callout warn">
-        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/></svg></span>
-        <div class="c-title">Danger — les danseuses</div>
-        <p>Les jumelles sont terrées derrière des tables renversées, paralysées. Le PJ <strong>connaît son lien avec elles</strong>. Les laisser, c'est un poids pour l'épilogue&nbsp;; les sauver, c'est ralentir sa propre fuite et s'exposer. Magnifique dilemme — laissez-le entier.</p>
-      </div>
-
-      <h4>Berlioz tombe — la mallette s'ouvre</h4>
-      <p>Au plus fort de l'assaut, <strong>Berlioz prend une balle</strong>. Sa mallette glisse, s'ouvre aux pieds du PJ.</p>
-      <div class="callout read">
-        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5Z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg></span>
-        <div class="c-title">À lire à voix haute — Berlioz au sol</div>
-        <p>« Berlioz s'effondre, une main pressée sur le flanc, l'autre tendue vers la mallette ouverte. À l'intérieur&nbsp;: des feuilles de musique. Une partition. "Résurrection… d'Hector Berlioz… inédite", souffle-t-il. "Il faut… que tu l'apportes à Ericka. Promets-le-moi." »</p>
-      </div>
-      <details class="secret">
-        <summary>
-          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="m9 6 6 6-6 6"/></svg>
-          Ce qu'est vraiment la partition « Résurrection »
-          <span class="tag">Secret</span>
-        </summary>
-        <div class="details-body">
-          <p>Ce n'est pas une œuvre perdue de Berlioz. Sous couvert de notation musicale, la partition <strong>chiffre le procédé de fabrication d'un nouveau mélange de drogue</strong> — l'avenir financier de l'Hydre. Glissé entre les pages&nbsp;: un <strong>échantillon</strong> qui, dit-on, <em>décuple la force</em> de celui qui le prend. Berlioz lui-même ignore peut-être qu'il transporte la vraie valeur du cartel. Quiconque la possède tient une cible dans le dos — et un trésor.</p>
-        </div>
-      </details>
-
-      <div class="callout warn">
-        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/></svg></span>
-        <div class="c-title">Danger — explosion &amp; poursuite</div>
-        <p>Une <strong>explosion</strong> fait s'effondrer un pan du décor (la grande enseigne « Lagon Bleu » dans une gerbe d'étincelles bleues), coupant un passage et en ouvrant un autre. Peu après, le PJ <strong>croise un assaillant qui veut la mallette</strong>&nbsp;: fuir, négocier, la lui abandonner, ou se battre&nbsp;? Chaque choix réécrit l'épilogue.</p>
+      <div class="callout gm">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span>
+        <div class="c-title">Info MJ — à partir d'ici, ça diverge</div>
+        <p>Désormais, la soirée peut varier énormément d'une partie à l'autre. La <strong>section suivante</strong> recense les possibilités de sortie — mais prenez toute liberté, innovez, et rebondissez sur ce que fait le joueur.</p>
       </div>
     </section>
 
     <!-- ============================ ACTE 7 ============================ -->
     <section id="acte7">
-      <h2><span class="num">Scène 7</span> La sortie</h2>
-      <p>Dehors, ce n'est pas le salut&nbsp;: <strong>la police est déjà là</strong> (les Stups, l'unité de Marc), et des tirs croisés balaient les ruelles entre cartel, gang et flics. Le PJ doit choisir sa fuite.</p>
+      <h2><span class="num">Scène 7</span> Sortie et fin</h2>
+      <p>Dehors comme dedans, c'est la guerre&nbsp;: la police boucle le quartier, le gang et le cartel s'entretuent. Trois sorties s'offrent au PJ, très inégales — et la manière dont il s'en tire, autant que ce qu'il a fait de sa nuit, décide de sa fin. <strong>À partir d'ici, improvisez large</strong>&nbsp;: ce qui suit n'est qu'une carte des possibles.</p>
+
+      <h4>Les trois sorties</h4>
+      <ul>
+        <li><strong>L'entrée principale</strong> — celle dont le PJ ne s'est jamais approché, et <strong>la plus difficile</strong>&nbsp;: c'est de là que déferlent les assaillants.</li>
+        <li><strong>L'entrée secondaire</strong> — celle par laquelle il est arrivé. Compliquée elle aussi&nbsp;: des assaillants y passent, et c'est là qu'<strong>Opale est plus ou moins capturée, ou malmenée</strong>. S'il tente de fuir par là, faites-lui comprendre — par des tirs venus de l'allée qui mène au Lagon Bleu — que l'endroit est <strong>extrêmement risqué</strong>.</li>
+        <li><strong>Le bureau</strong> — la sortie indiquée par Berlioz, et de loin <strong>la meilleure</strong> (voir ci-dessous).</li>
+      </ul>
+
+      <h4>La bonne sortie — par le bureau</h4>
+      <p>En passant par le bureau, le PJ débouche sur une <strong>rue intermédiaire entre deux bâtiments</strong>, où la police tente de l'interpeller. Mais quiconque l'accompagne lui indique une <strong>échelle, juste en face</strong>, à emprunter absolument. Vous pouvez pimenter un peu (des policiers qui tirent pendant la fuite), mais <strong>il faut que s'en tirer par là reste très facile</strong>.</p>
+      <p>Puis viennent <strong>les toits</strong>&nbsp;: en traversant le bâtiment d'en face, le PJ ressort dans une rue <strong>hors du périmètre bouclé par la police</strong>. <strong>Ericka l'y attend, au volant de l'Audi</strong> — prête à embarquer le PJ <strong>et toute personne qu'il a sauvée</strong>.</p>
+
+      <h4>Fin A — monter dans l'Audi</h4>
+      <p>Monter dans l'Audi clôt la scène de fuite. Profitez du trajet pour <strong>débriefer entre le PJ et Ericka</strong>&nbsp;: c'est cet échange qui construit l'épilogue, laissé à votre libre improvisation.</p>
+      <div class="callout gm">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span>
+        <div class="c-title">Info MJ — la fin dépend de la nuit du PJ</div>
+        <p>Si le PJ a été <strong>contre-productif</strong>, ou si Ericka a des <strong>doutes</strong> (il a menti, désobéi à ce qu'elle demandait…), une fin possible est la <strong>mort</strong>. Sinon, offrez-lui la possibilité de <strong>rejoindre le cartel</strong> et d'obtenir enfin la gloire qu'il était venu chercher&nbsp;: Ericka a les contacts pour lui bâtir une vraie notoriété. <strong>Donnez la fin que souhaite le PJ</strong>, en cohérence avec le fait qu'il a choisi le cartel.</p>
+      </div>
+      <div class="callout gm">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span>
+        <div class="c-title">Info MJ — selon qui le PJ a sauvé</div>
+        <p>Adaptez l'accueil d'Ericka et la couleur de l'épilogue aux personnes ramenées&nbsp;:</p>
+        <ul>
+          <li><strong>Daniel</strong> — Ericka est profondément <strong>reconnaissante</strong>&nbsp;; s'il l'a laissé derrière, elle est au contraire <strong>folle de rage</strong>.</li>
+          <li><strong>Berlioz</strong> — les <strong>têtes du cartel sont sauvées</strong> (l'Hydre garde sa façade).</li>
+          <li><strong>Opale</strong> — le PJ a sauvé l'un des <strong>siens</strong>&nbsp;: mettez ce geste en avant.</li>
+        </ul>
+      </div>
+
+      <h4>Fin B — se rendre à la police</h4>
+      <p>Si le PJ choisit la police, enchaînez vite&nbsp;:</p>
+      <ol>
+        <li>On l'<strong>éloigne du Lagon Bleu</strong>.</li>
+        <li>On le fait <strong>monter dans une voiture de patrouille</strong>, un peu à l'écart.</li>
+        <li><strong>Aussitôt, l'Audi d'Ericka surgit</strong> — Ericka à l'intérieur — pour récupérer le PJ, quitte à <strong>abattre la policière qui conduit</strong>.</li>
+      </ol>
+      <p>Si le PJ tente de <strong>s'opposer à Ericka</strong>, alors elle tentera de le tuer, lui aussi.</p>
+
+      <h4>Fin C — s'attarder au Lagon Bleu</h4>
+      <div class="callout gm">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span>
+        <div class="c-title">Info MJ — l'explosion finale</div>
+        <p>Si le PJ <strong>reste trop longtemps</strong> dans le Lagon Bleu, terminez la scène en faisant <strong>exploser le club tout entier</strong>. Selon l'endroit où il se trouve, il en sort <strong>gravement blessé… ou mort</strong>.</p>
+      </div>
+
+    </section>
+
+    <!-- ============================ ÉPILOGUE ============================ -->
+    <section id="acte8">
+      <h2><span class="num">Scène 8</span> Épilogue ouvert</h2>
+      <p>Le scénario n'impose pas de fin. Faites converger les choix de la nuit vers l'une de ces issues, et terminez sur une image forte. Rappelez la solitude du début&nbsp;: le PJ a quitté le noir des projecteurs pour un autre noir.</p>
+
+      <h4>Propositions de fins</h4>
+      <ul>
+        <li><strong>Entrer dans le cartel.</strong> Le PJ accepte la main que lui tend Ericka. Fini la misère&nbsp;; commence une autre captivité. Dernière image&nbsp;: il rejoue sur une scène, devant un public bien plus nombreux — une fin qui célèbre la <strong>gloire d'avoir enfin réussi</strong>, avec un bémol&nbsp;: le cartel est derrière lui.
+          <ul>
+            <li><em>Option&nbsp;:</em> faire naître une histoire d'amour avec Ericka.</li>
+            <li><em>Autre option&nbsp;:</em> laisser le PJ devenir la <strong>nouvelle tête de l'Hydre</strong> — sachant qu'Ericka tiendra bien plus à cette tête-là qu'à toutes les précédentes.</li>
+          </ul>
+        </li>
+        <li><strong>Reprendre sa vie d'avant.</strong> Il s'en sort, se tait, retourne à ses cafés. Mais le cartel n'oublie pas&nbsp;: une ombre, une voiture qui ralentit, un béret rouge dans le public un soir. La traque a commencé.</li>
+        <li><strong>Coopérer avec la police.</strong> S'il livre la clé USB, Ericka peut être <strong>retrouvée et arrêtée</strong> — mais pas de gloire pour autant&nbsp;: le PJ restera dans le <strong>noir et l'oubli</strong>.</li>
+        <li><strong>Blessé grave.</strong> Réveil à l'hôpital. À son chevet, <strong>Ericka</strong> — mais elle a <strong>notablement changé d'apparence</strong> (taille et couleur de cheveux, vêtements, maquillage), au point qu'on la reconnaît surtout à sa voix. Élégante et calme, elle se penche&nbsp;: «&nbsp;Repose-toi, tu es en sécurité, je suis là, il ne pourra rien t'arriver.&nbsp;» <em>Coupez là.</em></li>
+      </ul>
 
       <div class="callout gm">
         <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span>
-        <div class="c-title">Info MJ — deux voies, un carrefour</div>
-        <p>Présentez clairement le choix. <strong>L'Audi d'Ericka</strong> l'attend, moteur tournant&nbsp;: «&nbsp;Monte. Tout de suite.&nbsp;» — c'est rapide, mais c'est sceller son sort avec le cartel. <strong>Les ruelles</strong> offrent une autre issue, vers la police ou vers la nuit&nbsp;: plus libre, plus dangereuse, plus solitaire.</p>
-      </div>
-
-      <h4>Selon la voie choisie</h4>
-      <ul>
-        <li><strong>Monter avec Ericka</strong> — Elle démarre, les phares balaient les corps, ils s'éloignent. La carte SD et la partition pèsent soudain très lourd dans la poche du PJ. Tenter de les lui cacher dans la voiture — <span class="epreuve tres-difficile"><span class="gauge"><i></i><i></i><i></i></span>Très difficile</span>.</li>
-        <li><strong>Les ruelles</strong> — Traverser les tirs croisés sans se faire prendre par un camp ou l'autre — <span class="epreuve difficile"><span class="gauge"><i></i><i></i><i></i></span>Difficile</span>. Trouver une autre issue (toits, cave, sous-sol) hors des ruelles — <span class="epreuve modere"><span class="gauge"><i></i><i></i><i></i></span>Modéré</span>.</li>
-        <li><strong>Se rendre / rallier la police</strong> — Possible avec la carte SD comme monnaie d'échange&nbsp;: le PJ devient témoin protégé… et cible numéro un du cartel.</li>
-      </ul>
-    </section>
-
-    <!-- ============================ ACTE 8 ============================ -->
-    <section id="acte8">
-      <h2><span class="num">Scène 8</span> Épilogue ouvert</h2>
-      <p>Le scénario n'impose pas de fin. Faites converger les choix de la nuit — la carte, la partition, les danseuses, le téléphone, le lien de sang — vers l'une de ces issues, et terminez sur une image forte. Rappelez la solitude du début&nbsp;: le PJ a quitté le noir des projecteurs pour un autre noir.</p>
-
-      <h4>Les fins possibles</h4>
-      <ul>
-        <li><strong>Entrer dans le cartel.</strong> Le PJ accepte la main d'Ericka et de sa famille. Fini la misère&nbsp;; commence une autre captivité. Dernière image&nbsp;: il rejoue sur la scène du Lagon, applaudi cette fois — et il sait pourquoi.</li>
-        <li><strong>Reprendre sa vie d'avant.</strong> Il s'en sort, se tait, retourne à ses cafés. Mais le cartel n'oublie pas&nbsp;: une ombre, une voiture qui ralentit, un béret rouge dans le public un soir. La traque a commencé.</li>
-        <li><strong>Coopérer avec la police.</strong> La carte SD livrée, le PJ devient témoin&nbsp;: protection, identité changée — l'ironie d'un homme qui passe sa vie sous les feux à devoir disparaître.</li>
-        <li><strong>Blessé grave.</strong> Réveil à l'hôpital. À son chevet, <strong>Ericka</strong>, élégante et calme, qui se penche&nbsp;: «&nbsp;Repose-toi. Ce n'est pas fini.&nbsp;» <em>Coupez là.</em></li>
-      </ul>
-
-      <div class="callout warn">
-        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/></svg></span>
-        <div class="c-title">Danger — la mort en cours de route (à éviter)</div>
-        <p>Si le PJ meurt avant l'épilogue, ne tranchez pas net&nbsp;: offrez une <strong>scène de mort</strong> avec un dernier flash de sa vie d'artiste ratée — une salle vide, une chanson inachevée, le visage de quelqu'un de la scène 1. Donnez du sens, pas un game over.</p>
+        <div class="c-title">Info MJ — la mort du PJ</div>
+        <p>Si le PJ meurt, ne tranchez pas net&nbsp;: offrez-lui une vraie <strong>scène de mort</strong>. Posez-lui des questions&nbsp;: à quelle <strong>dernière scène</strong> pense-t-il&nbsp;? Quelle est la <strong>dernière personne</strong> qu'il revoit&nbsp;? Laissez un dernier flash de sa vie d'artiste — une salle vide, une chanson inachevée — et donnez du sens, jamais un simple game over.</p>
       </div>
     </section>
 
@@ -594,11 +610,11 @@
         </summary>
         <div class="details-body pnj">
           <div class="p-name">Ericka Dufrêne</div>
-          <p class="p-concept">Femme fatale au béret rouge. Séductrice, mais glaciale dès qu'on dépasse la ligne.</p>
-          <div class="p-line"><span class="k">Ce qu'elle veut</span><p class="v">Engager le PJ pour animer le lieu&nbsp;; et réduire en cendres le gang de l'Étoile.</p></div>
+          <p class="p-concept">Femme fatale. Séductrice, mais glaciale dès qu'on dépasse la ligne.</p>
+          <div class="p-line"><span class="k">Ce qu'elle veut</span><p class="v">Engager le PJ pour animer le lieu.</p></div>
           <div class="p-line"><span class="k">Ce qu'elle cache</span><p class="v">Elle est le <strong>vrai cœur du cartel de l'Hydre</strong>, derrière la façade de Berlioz. Elle change d'identité comme de couleur de cheveux. Mère de Daniel, ex de Jul.</p></div>
           <div class="p-line"><span class="k">Sa voix</span><p class="v p-voice">Posée, basse, jamais pressée. Pose des questions plus qu'elle n'en répond. Le compliment et la menace dans la même phrase.</p></div>
-          <div class="p-line"><span class="k">Levier dramatique</span><p class="v">Daniel, et le contrôle. Tout ce qui menace l'un ou l'autre la fait tirer la première.</p></div>
+          <div class="p-line"><span class="k">Levier dramatique</span><p class="v">Daniel, et le contrôle. Tout ce qui menace l'un ou l'autre peut la faire tirer la première.</p></div>
         </div>
       </details>
 
@@ -611,10 +627,10 @@
         <div class="details-body pnj">
           <div class="p-name">Berlioz — « Jack »</div>
           <p class="p-concept">Gros, cigare, moustache, voix cassée. Le visage débonnaire du cartel.</p>
-          <div class="p-line"><span class="k">Ce qu'il veut</span><p class="v">Anéantir le gang de l'Étoile&nbsp;; et séduire Ericka, qu'il croit son égale.</p></div>
-          <div class="p-line"><span class="k">Ce qu'il cache</span><p class="v">Il n'est que le <strong>N°2</strong>, la façade publique de l'Hydre, depuis peu. Et il est <strong>l'oncle du PJ</strong>.</p></div>
-          <div class="p-line"><span class="k">Sa voix</span><p class="v p-voice">Chaleureuse, gourmande, théâtrale. Cite la musique classique à tout propos. Tutoie vite, comme un parrain bienveillant.</p></div>
-          <div class="p-line"><span class="k">Levier dramatique</span><p class="v">Sa passion sincère pour la musique — et pour sa famille — le rend vulnérable et presque touchant. Tombe sous une balle à l'acte 6.</p></div>
+          <div class="p-line"><span class="k">Ce qu'il veut</span><p class="v">Plaire à Ericka pour, probablement, obtenir plus de contrôle sur le cartel.</p></div>
+          <div class="p-line"><span class="k">Ce qu'il cache</span><p class="v">Il n'est que le <strong>N°2</strong>, la façade publique de l'Hydre, depuis peu — mais c'est le <strong>seul, dans toute la maison, à savoir qui est vraiment Ericka</strong>.</p></div>
+          <div class="p-line"><span class="k">Sa voix</span><p class="v p-voice">Chaleureuse, gourmande, théâtrale. Multiplie les références de jazz à tout propos. Tutoie vite, comme un parrain bienveillant.</p></div>
+          <div class="p-line"><span class="k">Levier dramatique</span><p class="v">Sa passion sincère pour la musique le rend vulnérable et presque touchant.</p></div>
         </div>
       </details>
 
@@ -628,9 +644,9 @@
           <div class="p-name">Jul</div>
           <p class="p-concept">Grand, largement tatoué, casquette, lunettes de soleil en intérieur. Chef du gang de l'Étoile.</p>
           <div class="p-line"><span class="k">Ce qu'il veut</span><p class="v">Régler ses comptes avec le cartel&nbsp;; et surtout récupérer son fils, Daniel.</p></div>
-          <div class="p-line"><span class="k">Ce qu'il cache</span><p class="v">Sous la provocation, un père désespéré. Il connaît la vraie nature d'Ericka, son ex.</p></div>
+          <div class="p-line"><span class="k">Ce qu'il cache</span><p class="v">Sous la provocation, un père désespéré. Il déteste Ericka, son ex.</p></div>
           <div class="p-line"><span class="k">Sa voix</span><p class="v p-voice">Gouailleuse, narquoise, cherche la faille. Rit au mauvais moment. La dernière vanne de trop.</p></div>
-          <div class="p-line"><span class="k">Levier dramatique</span><p class="v">Sa mort, exécutée par Ericka, déclenche la guerre. Son assaut était déjà prêt dehors.</p></div>
+          <div class="p-line"><span class="k">Levier dramatique</span><p class="v">Sa mort, présumément exécutée par Ericka, ou son départ du club, déclenche la guerre. Son assaut était déjà prêt dehors.</p></div>
         </div>
       </details>
 
@@ -644,9 +660,8 @@
           <div class="p-name">Marc</div>
           <p class="p-concept">Monsieur Tout-le-monde&nbsp;: taille moyenne, visage ovale, lunettes discrètes. Flic des Stups infiltré.</p>
           <div class="p-line"><span class="k">Ce qu'il veut</span><p class="v">Démanteler le cartel de l'Hydre <em>et</em> le gang de l'Étoile. Faire sortir sa découverte coûte que coûte.</p></div>
-          <div class="p-line"><span class="k">Ce qu'il cache</span><p class="v">Sa couverture est brisée&nbsp;; il le sait. La carte SD est son testament&nbsp;: la vérité sur le « cœur » de l'Hydre.</p></div>
-          <div class="p-line"><span class="k">Sa voix</span><p class="v p-voice">Brève, pressée, à mi-voix. Ne se présente pas. Confie tout en une phrase, parce qu'il n'a qu'une phrase.</p></div>
-          <div class="p-line"><span class="k">Levier dramatique</span><p class="v">Emmené vers les bureaux peu après son geste. On n'entend plus jamais parler de lui&nbsp;: son absence pèse.</p></div>
+          <div class="p-line"><span class="k">Ce qu'il cache</span><p class="v">Sa couverture est brisée&nbsp;; il le sait. La clé USB est son testament&nbsp;: la vérité sur le « cœur » de l'Hydre.</p></div>
+          <div class="p-line"><span class="k">Levier dramatique</span><p class="v">Emmené vers les loges d'artiste peu après son geste. On n'entend plus jamais parler de lui.</p></div>
         </div>
       </details>
 
@@ -659,9 +674,9 @@
         <div class="details-body pnj">
           <div class="p-name">Daniel</div>
           <p class="p-concept">Dix ans, jean simple, innocent d'apparence. Aide à orienter les artistes et annonce les numéros.</p>
-          <div class="p-line"><span class="k">Ce qu'il veut</span><p class="v">Aider « les gens clean à le rester ». Veiller, à sa façon d'enfant, sur ceux qui ne sont pas encore sales.</p></div>
-          <div class="p-line"><span class="k">Ce qu'il cache</span><p class="v">Il est le <strong>fils d'Ericka et de Jul</strong> — l'enjeu vivant de toute la guerre.</p></div>
-          <div class="p-line"><span class="k">Sa voix</span><p class="v p-voice">Calme, lucide, trop mûre pour son âge. Des avertissements d'oracle dans une bouche d'enfant.</p></div>
+          <div class="p-line"><span class="k">Ce qu'il veut</span><p class="v">Juste rendre sa mère fière.</p></div>
+          <div class="p-line"><span class="k">Ce qu'il cache</span><p class="v">Rien&nbsp;: il ne cache pas qu'il est le <strong>fils d'Ericka et de Jul</strong>, l'enjeu vivant de toute la guerre.</p></div>
+          <div class="p-line"><span class="k">Sa voix</span><p class="v p-voice">Calme, lucide, trop mûre pour son âge.</p></div>
           <div class="p-line"><span class="k">Levier dramatique</span><p class="v">Sa sécurité fait basculer les adultes. Le seul personnage que tout le monde, même Ericka, veut protéger.</p></div>
         </div>
       </details>
@@ -669,106 +684,27 @@
       <details>
         <summary>
           <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="m9 6 6 6-6 6"/></svg>
-          Opale &amp; sa jumelle (les danseuses)
+          Opale (la danseuse)
           <span class="tag">PNJ</span>
         </summary>
         <div class="details-body pnj">
-          <div class="p-name">Opale &amp; sa jumelle</div>
-          <p class="p-concept">Deux danseuses fines, douces, innocentes et naïves. Cousines du PJ.</p>
-          <div class="p-line"><span class="k">Ce qu'elles veulent</span><p class="v">Gagner un peu d'argent en vivant de leur passion&nbsp;: la danse.</p></div>
-          <div class="p-line"><span class="k">Ce qu'elles cachent</span><p class="v">Rien — et c'est le drame&nbsp;: elles <strong>ignorent</strong> totalement où elles travaillent. Opale est proche d'Ericka.</p></div>
-          <div class="p-line"><span class="k">Leur voix</span><p class="v p-voice">Spontanées, rieuses, tendres. Elles parlent de famille sans savoir qu'elles parlent à un cousin.</p></div>
-          <div class="p-line"><span class="k">Levier dramatique</span><p class="v">L'innocence à protéger pendant la fusillade. Leur sort hante l'épilogue.</p></div>
+          <div class="p-name">Opale</div>
+          <p class="p-concept">Une danseuse fine, douce, innocente et naïve. Cousine du PJ — par hasard.</p>
+          <div class="p-line"><span class="k">Ce qu'elle veut</span><p class="v">Gagner un peu d'argent en vivant de sa passion&nbsp;: la danse.</p></div>
+          <div class="p-line"><span class="k">Ce qu'elle cache</span><p class="v">Rien.</p></div>
+          <div class="p-line"><span class="k">Sa voix</span><p class="v p-voice">Spontanée, rieuse, tendre.</p></div>
+          <div class="p-line"><span class="k">Levier dramatique</span><p class="v">L'innocence à protéger pendant la fusillade. Son sort hante l'épilogue, et le lien de sang en fait un choix cornélien.</p></div>
         </div>
       </details>
     </section>
 
     <!-- ============================ ANNEXES ============================ -->
     <section id="annexes">
-      <h2><span class="num">Annexes</span> Lieux &amp; tables</h2>
-
-      <h3>Les factions</h3>
-      <ul>
-        <li><strong>Le cartel de l'Hydre</strong> — Maître des lieux. Tête interchangeable (Berlioz), cœur secret (Ericka). Trafic à grande échelle, façade de prestige.</li>
-        <li><strong>Le gang de l'Étoile</strong> — Rivaux de Jul. Plus brut, plus pauvre, plus enragé. Prêt à tout pour récupérer Daniel et faire payer le cartel.</li>
-        <li><strong>Les Stups / la Police</strong> — L'unité de Marc. Encerclent le quartier à l'acte 7. Le salut possible — ou un troisième feu croisé.</li>
-      </ul>
-
-      <h3>Les lieux</h3>
-      <ul>
-        <li><strong>Le café Bonin</strong> — Le bar du départ, lieu de l'humiliation de la veille. Évoqué, pas visité (sauf en flashback).</li>
-        <li><strong>L'Audi blanche d'Ericka</strong> — Le confessionnal mobile de la scène 1, et l'issue tentante de l'acte 7.</li>
-        <li><strong>Le Lagon Bleu</strong> — Le club, théâtre de toute la nuit. Plan ci-dessous.</li>
-      </ul>
-
-      <h3>Plan du Lagon Bleu</h3>
+      <h2><span class="num">Annexes</span> Plan du Lagon Bleu</h2>
       <p>Schéma indicatif pour vous repérer. <strong>Entrée principale</strong> au nord (salon)&nbsp;; <strong>entrée secondaire</strong> au sud (loges)&nbsp;; <strong>sortie de service</strong> par le bureau du boss, à l'ouest.</p>
-      <div class="plan">
-        <div class="plan-grid">
-          <div class="room r-stockc">Stockage cuisine</div>
-          <div class="room r-cuis">Cuisines</div>
-          <div class="room key r-mezz">Mezzanine<br>(table de Berlioz)</div>
-          <div class="room r-stockd">Stockage divers</div>
-          <div class="room r-compta">Comptabilité</div>
-          <div class="room way r-cave">Vers la cave</div>
-          <div class="room r-bar">Bar</div>
-          <div class="room key r-salon">Salon — scène &amp; salle de représentation</div>
-          <div class="room key r-bureau">Bureau du boss<br>(sortie service)</div>
-          <div class="room way r-couloir">Couloir</div>
-          <div class="room r-privee">Salle privée</div>
-          <div class="room key r-loges">Loges artistes<br>(espace artiste)</div>
-          <div class="room r-vip">Loges VIP</div>
-          <div class="room key r-entree">Entrée secondaire</div>
-          <div class="room way r-couloir2">Couloir VIP</div>
-        </div>
-        <div class="plan-legend">
-          <span><span class="swatch"></span> Lieux-clés du scénario</span>
-          <span><span class="swatch" style="border-style:dashed;background:transparent"></span> Passages &amp; dégagements</span>
-        </div>
-      </div>
-      <div class="callout gm">
-        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span>
-        <div class="c-title">Info MJ — circulation</div>
-        <p>Avant l'acte 5, le PJ est cantonné aux <strong>loges artistes</strong> et au <strong>salon</strong> (sur scène). Les gardes verrouillent le couloir central. La <strong>régie</strong> (près du bar) abrite un lecteur pour la carte SD. Quand «&nbsp;tout pète&nbsp;», la coupure de courant ouvre tout&nbsp;: la cave, le bureau du boss et l'entrée secondaire deviennent des issues plausibles.</p>
-      </div>
-
-      <h3>Tables narratives</h3>
-      <h4>Le set du PJ — réaction de la salle (d6)</h4>
-      <table>
-        <thead><tr><th>d6</th><th>La salle pendant que vous jouez</th></tr></thead>
-        <tbody>
-          <tr><td>1</td><td>Indifférence polie&nbsp;: on parle affaires par-dessus votre voix.</td></tr>
-          <tr><td>2</td><td>Un convive ivre vous fixe avec insistance, sans raison claire.</td></tr>
-          <tr><td>3</td><td>Opale capte votre regard et vous offre un sourire qui vous tient debout.</td></tr>
-          <tr><td>4</td><td>Une mallette change de main, juste sous la mezzanine.</td></tr>
-          <tr><td>5</td><td>Daniel, dans l'ombre des coulisses, hoche la tête&nbsp;: continuez.</td></tr>
-          <tr><td>6</td><td>Berlioz ferme les yeux, ému&nbsp;: pour un instant, votre musique le touche vraiment.</td></tr>
-        </tbody>
-      </table>
-
-      <h4>Complications dans le chaos (d6)</h4>
-      <table>
-        <thead><tr><th>d6</th><th>Quand ça dégénère…</th></tr></thead>
-        <tbody>
-          <tr><td>1</td><td>Une lumière de secours s'allume pile sur vous&nbsp;: vous êtes à découvert.</td></tr>
-          <tr><td>2</td><td>Une danseuse vous agrippe le bras, terrorisée, et ne lâche plus.</td></tr>
-          <tr><td>3</td><td>Votre instrument (ou votre veste) reste accroché&nbsp;: lâcher ou perdre du temps&nbsp;?</td></tr>
-          <tr><td>4</td><td>Un assaillant vous prend pour un homme du cartel et vous vise.</td></tr>
-          <tr><td>5</td><td>La mallette vous échappe et glisse vers l'escalier.</td></tr>
-          <tr><td>6</td><td>Ericka apparaît dans la fumée et vous fait signe&nbsp;: la suivre ou non&nbsp;?</td></tr>
-        </tbody>
-      </table>
-
-      <h3>Ce que le PJ peut emporter de cette nuit</h3>
-      <ul>
-        <li><strong>La carte SD de Marc</strong> — La vérité sur le « cœur » de l'Hydre. Une arme contre Ericka, une condamnation si on la trouve sur vous.</li>
-        <li><strong>La partition « Résurrection »</strong> — Le procédé d'une nouvelle drogue, et un échantillon qui décuple la force. Convoitée par tous les camps.</li>
-        <li><strong>Le contrat du Lagon Bleu</strong> — Deux soirs par semaine, de quoi payer le loyer&nbsp;; le prix, c'est l'âme.</li>
-        <li><strong>Un nom de famille</strong> — La découverte que Berlioz et les danseuses sont des vôtres. Impossible à rendre.</li>
-      </ul>
-
+      <img src="plan.png" alt="Plan du Lagon Bleu" style="display:block;width:100%;height:auto;border:1px solid var(--border);border-radius:9px;background:#fff;">
       <hr>
-      <p style="color:var(--text-faint); font-size:.85rem;">« Le Lagon Bleu » — one-shot noir pour 1 joueur, théâtre de l'esprit, système agnostique (pensé pour DECimation / D10). Roleplay ★★★★ · Action ★. Mis en page avec le skill <em>jdr-scenario</em>.</p>
+      <p style="color:var(--text-faint); font-size:.85rem;">« Fausse Note » — one-shot noir pour 1 joueur, théâtre de l'esprit, système agnostique. Roleplay ★★★★ · Action ★.</p>
     </section>
 
   </main>
